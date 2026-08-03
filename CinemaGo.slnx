@@ -1,4 +1,10 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".dockerignore" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="README.md" />
+  </Folder>
   <Project Path="src/CinemaGo.AppHost/CinemaGo.AppHost.csproj" Id="c1c47522-1de2-43d7-b05f-93b35f095ab3" />
   <Project Path="src/CinemaGo.Application/CinemaGo.Application.csproj" Id="55a34fa0-b737-47ec-86bb-2aaddd50f19d" />
   <Project Path="src/CinemaGo.Domain/CinemaGo.Domain.csproj" Id="1ffc8d45-6d4c-4288-b283-07903c2b71b6" />
