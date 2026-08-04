@@ -1,5 +1,9 @@
 ﻿namespace CinemaGo.Domain
 {
+    /// <summary>
+    /// Movie represents a film available for scheduling in the cinema system.
+    /// Only movies with Status = NowShowing can be assigned to a ShowTime.
+    /// </summary>
     public class Movie : AuditableEntity
     {
         public required string Name { get; set; }
@@ -8,6 +12,10 @@
         public string Studio { get; set; } = string.Empty;
         public string Director { get; set; } = string.Empty;
         public string? OfficialTrailerUrl { get; set; }
+        /// <summary>
+        /// Duration of the movie in minutes (excluding trailer time).
+        /// Total screen time = Duration + ShowTime.TrailerTime.
+        /// </summary>
         public int Duration { get; set; } // Minutes
         public MovieGenre Genre { get; set; }
         public MovieStatus Status { get; set; }
