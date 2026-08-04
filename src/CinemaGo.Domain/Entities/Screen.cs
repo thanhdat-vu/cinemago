@@ -1,6 +1,4 @@
-﻿using CinemaGo.Domain.Entities;
-
-namespace CinemaGo.Domain
+﻿namespace CinemaGo.Domain
 {
     public class Screen : AuditableEntity
     {

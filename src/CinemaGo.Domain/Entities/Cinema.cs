@@ -1,4 +1,4 @@
-﻿namespace CinemaGo.Domain.Entities
+﻿namespace CinemaGo.Domain
 {
     public class Cinema : AuditableEntity
     {

@@ -2,7 +2,7 @@
 
 namespace CinemaGo.Domain
 {
-    internal interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity> where TEntity : class
     {
         void Add(TEntity entity);
         void Update(TEntity entity);
