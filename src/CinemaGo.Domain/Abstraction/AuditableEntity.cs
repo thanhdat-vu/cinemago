@@ -1,4 +1,4 @@
-﻿namespace CinemaGo.Domain.Abstraction
+﻿namespace CinemaGo.Domain
 {
     public abstract class AuditableEntity : BaseEntity, ISoftDeletable
     {
