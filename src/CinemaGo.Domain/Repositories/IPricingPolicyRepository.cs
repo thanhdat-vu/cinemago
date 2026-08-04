@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CinemaGo.Domain.Repositories
+﻿namespace CinemaGo.Domain
 {
     public interface IPricingPolicyRepository : IRepository<PricingPolicy>
     {
