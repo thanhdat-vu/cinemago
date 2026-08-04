@@ -2,8 +2,8 @@
 {
     public enum SeatType
     {
-        Regular,
-        VIP,
-        Couple,
+        Regular = 1,
+        VIP = 2,
+        Couple = 3,
     }
 }
