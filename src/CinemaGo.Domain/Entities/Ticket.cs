@@ -44,6 +44,13 @@ namespace CinemaGo.Domain
                 throw new InvalidOperationException("Only available tickets can be locked.");
             Status = TicketStatus.Locking;
             LockingBy = lockBy;
+
+            RaiseEvent(new TicketLocked(
+                TicketId: Id,
+                ShowTimeId: ShowTimeId,
+                TicketCode: Code,
+                LockingBy: lockBy,
+                Price: Price));
         }
 
         /// <summary>
@@ -54,6 +61,11 @@ namespace CinemaGo.Domain
         {
             Status = TicketStatus.Available;
             LockingBy = null;
+
+            RaiseEvent(new TicketReleased(
+                TicketId: Id,
+                ShowTimeId: ShowTimeId,
+                TicketCode: Code));
         }
 
         /// <summary>
@@ -69,6 +81,11 @@ namespace CinemaGo.Domain
                 throw new InvalidOperationException("Only locking tickets by the same customer can be released.");
             Status = TicketStatus.Available;
             LockingBy = null;
+
+            RaiseEvent(new TicketReleased(
+                TicketId: Id,
+                ShowTimeId: ShowTimeId,
+                TicketCode: Code));
         }
 
         /// <summary>
@@ -82,6 +99,13 @@ namespace CinemaGo.Domain
             Status = TicketStatus.Sold;
             BookingId = bookingId;
             LockingBy = null;
+
+            RaiseEvent(new TicketSold(
+                TicketId: Id,
+                ShowTimeId: ShowTimeId,
+                BookingId: bookingId,
+                TicketCode: Code,
+                Price: Price));
         }
     }
 

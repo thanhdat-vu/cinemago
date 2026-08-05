@@ -91,6 +91,13 @@
                 }
             }
             Seat = seats;
+
+            RaiseEvent(new ScreenSeatsGenerated(
+                ScreenId: Id,
+                CinemaId: CinemaId,
+                ScreenCode: Code,
+                ScreenType: Type,
+                TotalSeatsGenerated: seats.Count));
         }
 
         // =============================================================
