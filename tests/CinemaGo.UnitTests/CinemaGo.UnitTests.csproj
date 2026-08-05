@@ -24,13 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CinemaGo.Application\CinemaGo.Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="EntityTests\" />
-    <Folder Include="DomainServiceTests\" />
-    <Folder Include="Shared\" />
+    <ProjectReference Include="..\..\src\CinemaGo.Domain\CinemaGo.Domain.csproj" />
   </ItemGroup>
 
 </Project>
