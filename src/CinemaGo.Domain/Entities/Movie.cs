@@ -21,7 +21,7 @@
         public MovieStatus Status { get; set; }
 
         // =============================================================
-        // State transitions: explicit commands per allowed transition
+        // State Transitions
         // =============================================================
 
         /// <summary>
