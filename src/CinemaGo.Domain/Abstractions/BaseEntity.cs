@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using CinemaGo.Domain.Abstractions;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CinemaGo.Domain
 {
-    public abstract class BaseEntity: IEntity
+    public abstract class BaseEntity: IDefaultEntity
     {
         public Guid Id { get; set; }
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
