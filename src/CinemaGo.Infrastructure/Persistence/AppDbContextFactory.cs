@@ -11,7 +11,7 @@ namespace CinemaGo.Infrastructure.Persistence
 
             var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Postgres")
                 ?? Environment.GetEnvironmentVariable("POSTGRES_CONNECTION")
-                ?? "Host=localhost;Port=5432;Database=cinema_ticket_booking;Username=postgres;Password=postgres";
+                ?? "Host=localhost;Port=5432;Database=cinemagodb;Username=postgres;Password=postgres";
 
             optionsBuilder.UseNpgsql(connectionString);
 
@@ -19,3 +19,5 @@ namespace CinemaGo.Infrastructure.Persistence
         }
     }
 }
+
+// Add-Migration MigrationName -OutputDir Persistence/Migrations
