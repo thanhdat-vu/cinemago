@@ -13,7 +13,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="8.10.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="Testcontainers.PostgreSql" Version="4.13.0" />
     <PackageReference Include="Testcontainers.Redis" Version="4.13.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
@@ -31,14 +33,13 @@
     <Folder Include="ApiTests\" />
     <Folder Include="ApplicationTests\FeatureTests\" />
     <Folder Include="ApplicationTests\MessagingTests\" />
-    <Folder Include="InfrastructureTests\PersistenceTests\" />
-    <Folder Include="Shared\Fixtures\" />
-    <Folder Include="Shared\DataSeeders\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\CinemaGo.Application\CinemaGo.Application.csproj" />
+    <ProjectReference Include="..\..\src\CinemaGo.Domain\CinemaGo.Domain.csproj" />
+    <ProjectReference Include="..\..\src\CinemaGo.Infrastructure\CinemaGo.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\CinemaGo.WebServer\CinemaGo.WebServer.csproj" />
-    <ProjectReference Include="..\CinemaGo.UnitTests\CinemaGo.UnitTests.csproj" />
   </ItemGroup>
 
 </Project>

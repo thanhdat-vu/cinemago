@@ -6,7 +6,7 @@ namespace CinemaGo.Domain
     public abstract class BaseEntity: IDefaultEntity
     {
         public Guid Id { get; set; } = Guid.CreateVersion7();
-        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
+        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
         public uint Version { get; set; }
 
         private readonly List<IDomainEvent> _events = [];

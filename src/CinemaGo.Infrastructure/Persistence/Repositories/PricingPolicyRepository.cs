@@ -9,8 +9,12 @@ namespace CinemaGo.Infrastructure.Persistence
         public Task<List<PricingPolicy>> GetActivePoliciesAsync(
             Guid cinemaId, ScreenType screenType, CancellationToken ct = default)
         {
-            return _dbSet.Where(p => p.CinemaId == cinemaId && p.ScreenType == screenType && p.IsActive)
-                         .ToListAsync(ct);
+            return _dbSet
+                .Where(p => p.ScreenType == screenType
+                            && p.IsActive
+                            && (p.CinemaId == cinemaId || p.CinemaId == null))
+                .OrderByDescending(p => p.CinemaId == cinemaId)
+                .ToListAsync(ct);
         }
 
         public Task<PricingPolicy?> GetActivePolicyAsync(
@@ -19,11 +23,13 @@ namespace CinemaGo.Infrastructure.Persistence
             SeatType seatType,
             CancellationToken ct = default)
         {
-            return _dbSet.FirstOrDefaultAsync(p =>
-                            p.CinemaId == cinemaId
-                            && p.ScreenType == screenType
+            return _dbSet
+                .Where(p => p.ScreenType == screenType
                             && p.SeatType == seatType
-                            && p.IsActive, ct);
+                            && p.IsActive
+                            && (p.CinemaId == cinemaId || p.CinemaId == null))
+                .OrderByDescending(p => p.CinemaId == cinemaId)
+                .FirstOrDefaultAsync(ct);
         }
     }
 }

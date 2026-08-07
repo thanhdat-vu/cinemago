@@ -1,16 +1,22 @@
 <Solution>
-  <Folder Name="/Solution Items/">
+  <Folder Name="/solution-items/">
     <File Path=".dockerignore" />
     <File Path=".gitattributes" />
     <File Path=".gitignore" />
     <File Path="README.md" />
   </Folder>
-  <Project Path="src/CinemaGo.AppHost/CinemaGo.AppHost.csproj" Id="c1c47522-1de2-43d7-b05f-93b35f095ab3" />
-  <Project Path="src/CinemaGo.Application/CinemaGo.Application.csproj" Id="55a34fa0-b737-47ec-86bb-2aaddd50f19d" />
-  <Project Path="src/CinemaGo.Domain/CinemaGo.Domain.csproj" Id="1ffc8d45-6d4c-4288-b283-07903c2b71b6" />
-  <Project Path="src/CinemaGo.Infrastructure/CinemaGo.Infrastructure.csproj" Id="9df5652c-9bf3-4c9d-bdd1-1eb999b0b9b2" />
-  <Project Path="src/CinemaGo.ServiceDefaults/CinemaGo.ServiceDefaults.csproj" />
-  <Project Path="src/CinemaGo.WebServer/CinemaGo.WebServer.csproj" Id="72cd87ad-def5-480b-84f3-51f3808c6a36" />
-  <Project Path="tests/CinemaGo.IntegrationTests/CinemaGo.IntegrationTests.csproj" Id="d41fd4bc-dddc-4ca9-90de-3e8faf49b265" />
-  <Project Path="tests/CinemaGo.UnitTests/CinemaGo.UnitTests.csproj" Id="64cf9fb3-c0ba-4103-9a98-6c3b0e50cecb" />
+  <Folder Name="/src/">
+    <Project Path="src/CinemaGo.Application/CinemaGo.Application.csproj" Id="55a34fa0-b737-47ec-86bb-2aaddd50f19d" />
+    <Project Path="src/CinemaGo.Domain/CinemaGo.Domain.csproj" Id="1ffc8d45-6d4c-4288-b283-07903c2b71b6" />
+    <Project Path="src/CinemaGo.Infrastructure/CinemaGo.Infrastructure.csproj" Id="9df5652c-9bf3-4c9d-bdd1-1eb999b0b9b2" />
+    <Project Path="src/CinemaGo.WebServer/CinemaGo.WebServer.csproj" Id="72cd87ad-def5-480b-84f3-51f3808c6a36" />
+  </Folder>
+  <Folder Name="/src/aspire/">
+    <Project Path="src/CinemaGo.AppHost/CinemaGo.AppHost.csproj" Id="c1c47522-1de2-43d7-b05f-93b35f095ab3" />
+    <Project Path="src/CinemaGo.ServiceDefaults/CinemaGo.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CinemaGo.IntegrationTests/CinemaGo.IntegrationTests.csproj" Id="d41fd4bc-dddc-4ca9-90de-3e8faf49b265" />
+    <Project Path="tests/CinemaGo.UnitTests/CinemaGo.UnitTests.csproj" Id="64cf9fb3-c0ba-4103-9a98-6c3b0e50cecb" />
+  </Folder>
 </Solution>
