@@ -1,4 +1,5 @@
 ﻿using CinemaGo.Application;
+using CinemaGo.Domain;
 using CinemaGo.Infrastructure.Persistence;
 using JasperFx;
 using JasperFx.Core;
@@ -41,6 +42,18 @@ namespace CinemaGo.WebServer
                 .Then.MoveToErrorQueue();
 
                 opts.AutoBuildMessageStorageOnStartup = AutoCreate.CreateOrUpdate;
+
+
+                //opts.PublishAllMessages().Locally().MaximumParallelMessages(4).UseDurableInbox();
+
+                opts.Publish(rule =>
+                {
+                    rule.MessagesImplementing<IDomainEvent>();
+
+                    rule.ToLocalQueue("domain_events")
+                        .MaximumParallelMessages(4)
+                        .UseDurableInbox();
+                });
             });
         }
     }

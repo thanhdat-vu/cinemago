@@ -41,7 +41,7 @@
         public string SeatMap { get; set; } = string.Empty;
         public ScreenType Type { get; set; }
         public bool IsActive { get; set; } = true;
-        public List<Seat> Seat { get; set; } = [];
+        public List<Seat> Seats { get; set; } = [];
 
         /// <summary>
         /// Parses the SeatMap string and generates Seat entities for every non-zero cell.
@@ -90,7 +90,7 @@
                     }
                 }
             }
-            Seat = seats;
+            Seats = seats;
 
             RaiseEvent(new ScreenSeatsGenerated(
                 ScreenId: Id,

@@ -48,7 +48,7 @@
                     "ShowTime must be scheduled in the future.");
 
             // 4. Validate Screen has seats
-            if (screen.Seat is null || screen.Seat.Count == 0)
+            if (screen.Seats is null || screen.Seats.Count == 0)
                 throw new InvalidOperationException(
                     $"Screen '{screen.Code}' has no seats. Cannot create a showtime.");
 
@@ -98,7 +98,7 @@
         // =============================================================
         private void GenerateTickets(Screen screen, List<PricingPolicy> pricingPolicies)
         {
-            foreach (var seat in screen.Seat.Where(s => s.IsActive))
+            foreach (var seat in screen.Seats.Where(s => s.IsActive))
             {
                 var policy = pricingPolicies
                     .FirstOrDefault(p => p.SeatType == seat.Type && p.IsActive);

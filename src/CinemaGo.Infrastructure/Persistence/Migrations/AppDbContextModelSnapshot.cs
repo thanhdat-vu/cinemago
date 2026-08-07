@@ -977,7 +977,7 @@ namespace CinemaGo.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("CinemaGo.Domain.Seat", b =>
                 {
                     b.HasOne("CinemaGo.Domain.Screen", null)
-                        .WithMany("Seat")
+                        .WithMany("Seats")
                         .HasForeignKey("ScreenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1073,7 +1073,7 @@ namespace CinemaGo.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("CinemaGo.Domain.Screen", b =>
                 {
-                    b.Navigation("Seat");
+                    b.Navigation("Seats");
                 });
 
             modelBuilder.Entity("CinemaGo.Domain.ShowTime", b =>

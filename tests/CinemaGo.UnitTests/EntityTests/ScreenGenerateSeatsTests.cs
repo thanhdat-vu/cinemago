@@ -20,9 +20,9 @@ namespace CinemaGo.UnitTests.EntityTests
 
             screen.GenerateSeats("[[1,1,0]]");
 
-            screen.Seat.Should().HaveCount(2);
-            screen.Seat.Select(s => s.Code).Should().Contain("A1", "A2");
-            screen.Seat.Should().OnlyContain(s => s.Type == SeatType.Regular);
+            screen.Seats.Should().HaveCount(2);
+            screen.Seats.Select(s => s.Code).Should().Contain("A1", "A2");
+            screen.Seats.Should().OnlyContain(s => s.Type == SeatType.Regular);
             screen.Events.Should().ContainSingle().Which.Should().BeOfType<ScreenSeatsGenerated>();
         }
 
@@ -41,7 +41,7 @@ namespace CinemaGo.UnitTests.EntityTests
             var plain = "1 1 0\n1 1 0";
             screen.GenerateSeats(plain);
 
-            screen.Seat.Should().NotBeEmpty();
+            screen.Seats.Should().NotBeEmpty();
         }
 
         [Fact]
@@ -106,9 +106,9 @@ namespace CinemaGo.UnitTests.EntityTests
 
             screen.GenerateSeats("[[3,0]]");
 
-            screen.Seat.Should().ContainSingle();
-            screen.Seat[0].Code.Should().StartWith("Sweet");
-            screen.Seat[0].Type.Should().Be(SeatType.Couple);
+            screen.Seats.Should().ContainSingle();
+            screen.Seats[0].Code.Should().StartWith("Sweet");
+            screen.Seats[0].Type.Should().Be(SeatType.Couple);
         }
     }
 }

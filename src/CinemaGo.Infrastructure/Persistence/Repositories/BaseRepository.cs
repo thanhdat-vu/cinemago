@@ -4,17 +4,10 @@ using System.Linq.Expressions;
 
 namespace CinemaGo.Infrastructure.Persistence
 {
-    public class BaseRepository<T> : IRepository<T>
-        where T : class
+    public class BaseRepository<T>(AppDbContext db) : IRepository<T>
+            where T : class
     {
-        private readonly AppDbContext _db;
-        protected readonly DbSet<T> _dbSet;
-
-        public BaseRepository(AppDbContext db)
-        {
-            _db = db;
-            _dbSet = db.Set<T>();
-        }
+        protected readonly DbSet<T> _dbSet = db.Set<T>();
 
         public virtual void Add(T entity)
         {
@@ -23,7 +16,7 @@ namespace CinemaGo.Infrastructure.Persistence
 
         public void Update(T entity)
         {
-            _db.Entry(entity).State = EntityState.Modified;
+            db.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(T entity)
