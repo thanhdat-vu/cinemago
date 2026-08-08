@@ -1,6 +1,4 @@
-﻿using CinemaGo.Domain;
-using CinemaGo.Domain.Abstractions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CinemaGo.Infrastructure.Persistence.Configurations
@@ -24,8 +22,8 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
         public static void ConfigureTrackable<TEntity>(this EntityTypeBuilder<TEntity> builder)
             where TEntity : class, ITrackable
         {
-            builder.Property(x => x.CreatedBy).HasMaxLength(ColumnMaxLengths.ActorName);
-            builder.Property(x => x.UpdatedBy).HasMaxLength(ColumnMaxLengths.ActorName);
+            builder.Property(x => x.CreatedBy).HasMaxLength(MaxLengthConsts.ActorName);
+            builder.Property(x => x.UpdatedBy).HasMaxLength(MaxLengthConsts.ActorName);
             builder.Property(x => x.UpdatedAt);
         }
 

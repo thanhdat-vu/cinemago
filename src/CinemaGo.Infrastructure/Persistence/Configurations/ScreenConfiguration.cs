@@ -1,5 +1,4 @@
-﻿using CinemaGo.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CinemaGo.Infrastructure.Persistence.Configurations
@@ -11,7 +10,7 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
             builder.ToTable("screens");
             builder.ConfigureAuditableEntity();
 
-            builder.Property(x => x.Code).HasMaxLength(ColumnMaxLengths.ScreenCode).IsRequired();
+            builder.Property(x => x.Code).HasMaxLength(MaxLengthConsts.ScreenCode).IsRequired();
             builder.Property(x => x.RowOfSeats).IsRequired();
             builder.Property(x => x.ColumnOfSeats).IsRequired();
             builder.Property(x => x.TotalSeats).IsRequired();

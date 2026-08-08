@@ -1,7 +1,4 @@
-﻿using CinemaGo.Domain.Abstractions;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace CinemaGo.Domain
+﻿namespace CinemaGo.Domain
 {
     public abstract class BaseEntity: IDefaultEntity
     {

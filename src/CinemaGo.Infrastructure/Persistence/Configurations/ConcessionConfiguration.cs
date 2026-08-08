@@ -1,5 +1,4 @@
-﻿using CinemaGo.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CinemaGo.Infrastructure.Persistence.Configurations
@@ -11,9 +10,9 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
             builder.ToTable("concessions");
             builder.ConfigureAuditableEntity();
 
-            builder.Property(x => x.Name).HasMaxLength(ColumnMaxLengths.Name).IsRequired();
+            builder.Property(x => x.Name).HasMaxLength(MaxLengthConsts.Name).IsRequired();
             builder.Property(x => x.Price).HasPrecision(18, 2).IsRequired();
-            builder.Property(x => x.ImageUrl).HasMaxLength(ColumnMaxLengths.Url);
+            builder.Property(x => x.ImageUrl).HasMaxLength(MaxLengthConsts.Url);
             builder.Property(x => x.IsAvailable).IsRequired();
         }
     }

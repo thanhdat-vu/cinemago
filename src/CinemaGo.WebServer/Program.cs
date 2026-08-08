@@ -48,13 +48,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-app.MapPost("/test-requests", async (IMessageBus bus, TestRequest request) =>
-{
-    await bus.InvokeAsync(request);
-    return Results.Ok();
-});
-
-
 using var scope = app.Services.CreateScope();
 try
 {

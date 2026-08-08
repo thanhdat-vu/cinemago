@@ -1,5 +1,4 @@
-﻿using CinemaGo.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CinemaGo.Infrastructure.Persistence.Configurations
@@ -11,12 +10,12 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
             builder.ToTable("movies");
             builder.ConfigureAuditableEntity();
 
-            builder.Property(x => x.Name).HasMaxLength(ColumnMaxLengths.Name).IsRequired();
-            builder.Property(x => x.Description).HasMaxLength(ColumnMaxLengths.Description);
-            builder.Property(x => x.ThumbnailUrl).HasMaxLength(ColumnMaxLengths.Url);
-            builder.Property(x => x.Studio).HasMaxLength(ColumnMaxLengths.Name);
-            builder.Property(x => x.Director).HasMaxLength(ColumnMaxLengths.ActorName);
-            builder.Property(x => x.OfficialTrailerUrl).HasMaxLength(ColumnMaxLengths.Url);
+            builder.Property(x => x.Name).HasMaxLength(MaxLengthConsts.Name).IsRequired();
+            builder.Property(x => x.Description).HasMaxLength(MaxLengthConsts.Description);
+            builder.Property(x => x.ThumbnailUrl).HasMaxLength(MaxLengthConsts.Url);
+            builder.Property(x => x.Studio).HasMaxLength(MaxLengthConsts.Name);
+            builder.Property(x => x.Director).HasMaxLength(MaxLengthConsts.ActorName);
+            builder.Property(x => x.OfficialTrailerUrl).HasMaxLength(MaxLengthConsts.Url);
             builder.Property(x => x.Duration).IsRequired();
             builder.Property(x => x.Genre).IsRequired();
             builder.Property(x => x.Status).IsRequired();

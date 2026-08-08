@@ -1,5 +1,4 @@
-﻿using CinemaGo.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CinemaGo.Infrastructure.Persistence.Configurations
@@ -11,10 +10,10 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
             builder.ToTable("customers");
             builder.ConfigureAuditableEntity();
 
-            builder.Property(x => x.Name).HasMaxLength(ColumnMaxLengths.Name).IsRequired();
-            builder.Property(x => x.SessionId).HasMaxLength(ColumnMaxLengths.SessionId).IsRequired();
-            builder.Property(x => x.PhoneNumber).HasMaxLength(ColumnMaxLengths.PhoneNumber);
-            builder.Property(x => x.Email).HasMaxLength(ColumnMaxLengths.Email);
+            builder.Property(x => x.Name).HasMaxLength(MaxLengthConsts.Name).IsRequired();
+            builder.Property(x => x.SessionId).HasMaxLength(MaxLengthConsts.SessionId).IsRequired();
+            builder.Property(x => x.PhoneNumber).HasMaxLength(MaxLengthConsts.PhoneNumber);
+            builder.Property(x => x.Email).HasMaxLength(MaxLengthConsts.Email);
             builder.Property(x => x.IsRegistered).IsRequired();
         }
     }

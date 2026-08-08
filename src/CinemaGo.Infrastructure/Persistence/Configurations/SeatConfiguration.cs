@@ -1,5 +1,4 @@
-﻿using CinemaGo.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CinemaGo.Infrastructure.Persistence.Configurations
@@ -12,7 +11,7 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).ValueGeneratedNever();
-            builder.Property(x => x.Code).HasMaxLength(ColumnMaxLengths.SeatCode).IsRequired();
+            builder.Property(x => x.Code).HasMaxLength(MaxLengthConsts.SeatCode).IsRequired();
             builder.Property(x => x.Row).IsRequired();
             builder.Property(x => x.Column).IsRequired();
             builder.Property(x => x.IsAvailable).IsRequired();

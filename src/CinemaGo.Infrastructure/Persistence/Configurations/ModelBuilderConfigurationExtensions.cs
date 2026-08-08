@@ -1,5 +1,4 @@
-﻿using CinemaGo.Domain;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -32,8 +31,8 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
             modelBuilder.Entity<IdentityUserClaim<Guid>>(builder =>
             {
                 builder.ToTable("account_claims");
-                builder.Property(x => x.ClaimType).HasMaxLength(ColumnMaxLengths.ClaimType);
-                builder.Property(x => x.ClaimValue).HasMaxLength(ColumnMaxLengths.ClaimValue);
+                builder.Property(x => x.ClaimType).HasMaxLength(MaxLengthConsts.ClaimType);
+                builder.Property(x => x.ClaimValue).HasMaxLength(MaxLengthConsts.ClaimValue);
             });
 
             modelBuilder.Entity<IdentityUserRole<Guid>>(builder =>
@@ -44,24 +43,24 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
             modelBuilder.Entity<IdentityUserLogin<Guid>>(builder =>
             {
                 builder.ToTable("account_logins");
-                builder.Property(x => x.LoginProvider).HasMaxLength(ColumnMaxLengths.IdentityProvider);
-                builder.Property(x => x.ProviderKey).HasMaxLength(ColumnMaxLengths.IdentityProviderKey);
-                builder.Property(x => x.ProviderDisplayName).HasMaxLength(ColumnMaxLengths.Name);
+                builder.Property(x => x.LoginProvider).HasMaxLength(MaxLengthConsts.IdentityProvider);
+                builder.Property(x => x.ProviderKey).HasMaxLength(MaxLengthConsts.IdentityProviderKey);
+                builder.Property(x => x.ProviderDisplayName).HasMaxLength(MaxLengthConsts.Name);
             });
 
             modelBuilder.Entity<IdentityRoleClaim<Guid>>(builder =>
             {
                 builder.ToTable("role_claims");
-                builder.Property(x => x.ClaimType).HasMaxLength(ColumnMaxLengths.ClaimType);
-                builder.Property(x => x.ClaimValue).HasMaxLength(ColumnMaxLengths.ClaimValue);
+                builder.Property(x => x.ClaimType).HasMaxLength(MaxLengthConsts.ClaimType);
+                builder.Property(x => x.ClaimValue).HasMaxLength(MaxLengthConsts.ClaimValue);
             });
 
             modelBuilder.Entity<IdentityUserToken<Guid>>(builder =>
             {
                 builder.ToTable("account_tokens");
-                builder.Property(x => x.LoginProvider).HasMaxLength(ColumnMaxLengths.IdentityProvider);
-                builder.Property(x => x.Name).HasMaxLength(ColumnMaxLengths.TokenName);
-                builder.Property(x => x.Value).HasMaxLength(ColumnMaxLengths.TokenValue);
+                builder.Property(x => x.LoginProvider).HasMaxLength(MaxLengthConsts.IdentityProvider);
+                builder.Property(x => x.Name).HasMaxLength(MaxLengthConsts.TokenName);
+                builder.Property(x => x.Value).HasMaxLength(MaxLengthConsts.TokenValue);
             });
         }
     }

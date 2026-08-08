@@ -1,4 +1,4 @@
-﻿namespace CinemaGo.Domain.Abstractions
+﻿namespace CinemaGo.Domain
 {
     public interface IDefaultEntity : IEntity
     {

@@ -1,7 +1,5 @@
 ﻿using CinemaGo.Application;
 using CinemaGo.Application.Abstractions;
-using CinemaGo.Domain;
-using CinemaGo.Domain.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Wolverine;
