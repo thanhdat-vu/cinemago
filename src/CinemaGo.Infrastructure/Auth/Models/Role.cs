@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CinemaGo.Domain.Abstractions;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CinemaGo.Infrastructure.Auth
 {
-    public class Role : IdentityRole<Guid>, IDefaultEntity, ITrackable, ISoftDeletable
+    public class Role : IdentityRole<Guid>, IAggregateRoot
     {
         public string DisplayName { get; set; } = string.Empty;
         public uint Version { get; set; }

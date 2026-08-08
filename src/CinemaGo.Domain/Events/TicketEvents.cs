@@ -9,7 +9,7 @@
         Guid ShowTimeId,
         string TicketCode,
         string LockingBy,
-        decimal Price) : IDomainEvent;
+        decimal Price) : BaseDomainEvent;
 
     /// <summary>
     /// Raised when a ticket is released back to available.
@@ -18,7 +18,7 @@
     public record TicketReleased(
         Guid TicketId,
         Guid ShowTimeId,
-        string TicketCode) : IDomainEvent;
+        string TicketCode) : BaseDomainEvent;
 
     /// <summary>
     /// Raised when a ticket is marked as sold (Locking → Sold).
@@ -29,5 +29,5 @@
         Guid ShowTimeId,
         Guid BookingId,
         string TicketCode,
-        decimal Price) : IDomainEvent;
+        decimal Price) : BaseDomainEvent;
 }

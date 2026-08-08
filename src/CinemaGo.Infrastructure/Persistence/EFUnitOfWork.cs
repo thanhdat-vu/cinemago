@@ -70,11 +70,11 @@ namespace CinemaGo.Infrastructure.Persistence
         {
             var entries = db.ChangeTracker
                 .Entries()
-                .Where(entry => entry.Entity is ITrackable);
+                .Where(entry => entry.Entity is IAuditable);
 
             foreach (var entry in entries)
             {
-                var trackable = (ITrackable)entry.Entity;
+                var trackable = (IAuditable)entry.Entity;
                 if (entry.State == EntityState.Added)
                 {
                     trackable.CreatedBy = user.UserName;

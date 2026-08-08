@@ -1,6 +1,6 @@
 ﻿namespace CinemaGo.Domain
 {
-    public interface ITrackable
+    public interface IAuditable
     {
         DateTimeOffset? UpdatedAt { get; set; }
         string? UpdatedBy { get; set; }

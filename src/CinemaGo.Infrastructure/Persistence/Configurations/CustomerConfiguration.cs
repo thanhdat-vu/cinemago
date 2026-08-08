@@ -8,7 +8,7 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
             builder.ToTable("customers");
-            builder.ConfigureAuditableEntity();
+            builder.ConfigureAggregateRoot();
 
             builder.Property(x => x.Name).HasMaxLength(MaxLengthConsts.Name).IsRequired();
             builder.Property(x => x.SessionId).HasMaxLength(MaxLengthConsts.SessionId).IsRequired();

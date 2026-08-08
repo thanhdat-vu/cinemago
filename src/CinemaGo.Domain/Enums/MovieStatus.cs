@@ -6,7 +6,7 @@ namespace CinemaGo.Domain
 {
     public enum MovieStatus
     {
-        Ongoing,
+        Upcoming,
         NowShowing,
         NoShow
     }

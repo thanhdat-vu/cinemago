@@ -8,7 +8,7 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Ticket> builder)
         {
             builder.ToTable("tickets");
-            builder.ConfigureAuditableEntity();
+            builder.ConfigureAggregateRoot();
 
             builder.Property(x => x.Code).HasMaxLength(MaxLengthConsts.TicketCode).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(MaxLengthConsts.TicketDescription);

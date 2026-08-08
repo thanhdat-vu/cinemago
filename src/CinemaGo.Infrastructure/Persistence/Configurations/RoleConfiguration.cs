@@ -10,7 +10,7 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
         {
             builder.ToTable("roles");
             builder.ConfigureDefaultEntity();
-            builder.ConfigureTrackable();
+            builder.ConfigureAuditable();
             builder.ConfigureSoftDeletable();
 
             builder.Property(x => x.DisplayName).HasMaxLength(MaxLengthConsts.Name).IsRequired();

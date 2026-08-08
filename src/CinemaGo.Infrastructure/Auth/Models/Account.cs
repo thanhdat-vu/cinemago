@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CinemaGo.Domain.Abstractions;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CinemaGo.Infrastructure.Auth
 {
-    public class Account : IdentityUser<Guid>, IDefaultEntity, ITrackable, ISoftDeletable
+    public class Account : IdentityUser<Guid>, IAggregateRoot
     {
         public Guid? CustomerId { get; set; }
         public uint Version { get; set; }

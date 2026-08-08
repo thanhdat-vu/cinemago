@@ -8,7 +8,7 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Concession> builder)
         {
             builder.ToTable("concessions");
-            builder.ConfigureAuditableEntity();
+            builder.ConfigureAggregateRoot();
 
             builder.Property(x => x.Name).HasMaxLength(MaxLengthConsts.Name).IsRequired();
             builder.Property(x => x.Price).HasPrecision(18, 2).IsRequired();

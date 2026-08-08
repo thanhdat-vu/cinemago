@@ -8,7 +8,7 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<PricingPolicy> builder)
         {
             builder.ToTable("pricing_policies");
-            builder.ConfigureAuditableEntity();
+            builder.ConfigureAggregateRoot();
 
             builder.Property(x => x.ScreenType).IsRequired();
             builder.Property(x => x.SeatType).IsRequired();

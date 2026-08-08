@@ -48,7 +48,7 @@ namespace CinemaGo.IntegrationTests.Shared.DataSeeders
             return screen;
         }
 
-        public static ShowTime ShowTime(Guid movieId, Guid screenId, ShowTimeStatus status = ShowTimeStatus.Ongoing)
+        public static ShowTime ShowTime(Guid movieId, Guid screenId, ShowTimeStatus status = ShowTimeStatus.Upcoming)
         {
             var start = DateTimeOffset.UtcNow.AddHours(2);
             return new ShowTime

@@ -8,7 +8,7 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Screen> builder)
         {
             builder.ToTable("screens");
-            builder.ConfigureAuditableEntity();
+            builder.ConfigureAggregateRoot();
 
             builder.Property(x => x.Code).HasMaxLength(MaxLengthConsts.ScreenCode).IsRequired();
             builder.Property(x => x.RowOfSeats).IsRequired();

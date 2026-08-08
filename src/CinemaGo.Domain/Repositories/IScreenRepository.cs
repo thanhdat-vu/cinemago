@@ -6,5 +6,6 @@
     /// </summary>
     public interface IScreenRepository : IRepository<Screen>
     {
+        Task<Screen?> GetByIdWithSeatsAsync(Guid id, CancellationToken ct = default);
     }
 }

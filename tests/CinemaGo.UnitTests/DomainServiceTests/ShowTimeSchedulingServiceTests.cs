@@ -51,7 +51,7 @@ namespace CinemaGo.UnitTests.DomainServiceTests
                 ScreenId = screen.Id,
                 StartAt = start.AddHours(-1),
                 EndAt = start.AddHours(3),
-                Status = ShowTimeStatus.Ongoing
+                Status = ShowTimeStatus.Upcoming
             };
 
             var showTimeRepo = new Mock<IShowTimeRepository>();

@@ -1,6 +1,6 @@
 ﻿namespace CinemaGo.Domain
 {
-    public abstract class AuditableEntity : BaseEntity, ITrackable, ISoftDeletable
+    public abstract class AggregateRoot : DefaultEntity, IAuditable, ISoftDeletable
     {
         public string? CreatedBy { get; set; }
         public DateTimeOffset? UpdatedAt { get; set; }
