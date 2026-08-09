@@ -86,6 +86,43 @@
             return pricingPolicy;
         }
 
+        /// <summary>
+        /// Updates basic pricing policy fields and raises an update event.
+        /// </summary>
+        public void UpdateBasicInfo(
+            Guid? cinemaId,
+            ScreenType screenType,
+            SeatType seatType,
+            decimal basePrice,
+            decimal screenCoefficient,
+            bool isActive)
+        {
+            if (basePrice < 0)
+            {
+                throw new ArgumentException("Base price cannot be negative.", nameof(basePrice));
+            }
+
+            if (screenCoefficient <= 0)
+            {
+                throw new ArgumentException("Screen coefficient must be positive.", nameof(screenCoefficient));
+            }
+
+            CinemaId = cinemaId;
+            ScreenType = screenType;
+            SeatType = seatType;
+            BasePrice = basePrice;
+            ScreenCoefficient = screenCoefficient;
+            IsActive = isActive;
+
+            RaiseEvent(new PricingPolicyBasicInfoUpdated(
+                PricingPolicyId: Id,
+                CinemaId: CinemaId,
+                ScreenType: ScreenType,
+                SeatType: SeatType,
+                BasePrice: BasePrice,
+                ScreenCoefficient: ScreenCoefficient,
+                IsActive: IsActive));
+        }
 
         /// <summary>
         /// Calculates the final ticket price.
