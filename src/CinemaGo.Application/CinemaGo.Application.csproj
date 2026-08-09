@@ -23,9 +23,6 @@
     <Folder Include="Features\Customers\Commands\" />
     <Folder Include="Features\Customers\ResponseDTOs\" />
     <Folder Include="Features\Customers\Queries\" />
-    <Folder Include="Features\PricingPolicies\Commands\" />
-    <Folder Include="Features\PricingPolicies\ResponseDTOs\" />
-    <Folder Include="Features\PricingPolicies\Queries\" />
     <Folder Include="Features\Tickets\Commands\" />
     <Folder Include="Features\Tickets\ResponseDTOs\" />
     <Folder Include="Features\Tickets\Queries\" />
