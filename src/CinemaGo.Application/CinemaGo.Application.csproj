@@ -20,9 +20,6 @@
     <Folder Include="Features\Bookings\Commands\" />
     <Folder Include="Features\Bookings\ResponseDTOs\" />
     <Folder Include="Features\Bookings\Queries\" />
-    <Folder Include="Features\Concessions\Commands\" />
-    <Folder Include="Features\Concessions\ResponseDTOs\" />
-    <Folder Include="Features\Concessions\Queries\" />
     <Folder Include="Features\Customers\Commands\" />
     <Folder Include="Features\Customers\ResponseDTOs\" />
     <Folder Include="Features\Customers\Queries\" />
