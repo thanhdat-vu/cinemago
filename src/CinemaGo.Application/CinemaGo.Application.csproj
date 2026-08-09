@@ -17,12 +17,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Customers\" />
-    <Folder Include="Features\Bookings\" />
-    <Folder Include="Features\Concessions\" />
-    <Folder Include="Features\Tickets\" />
-    <Folder Include="Features\PricingPolicies\" />
-    <Folder Include="Features\Screens\Queries\" />
+    <Folder Include="Features\Bookings\Commands\" />
+    <Folder Include="Features\Bookings\ResponseDTOs\" />
+    <Folder Include="Features\Bookings\Queries\" />
+    <Folder Include="Features\Concessions\Commands\" />
+    <Folder Include="Features\Concessions\ResponseDTOs\" />
+    <Folder Include="Features\Concessions\Queries\" />
+    <Folder Include="Features\Customers\Commands\" />
+    <Folder Include="Features\Customers\ResponseDTOs\" />
+    <Folder Include="Features\Customers\Queries\" />
+    <Folder Include="Features\PricingPolicies\Commands\" />
+    <Folder Include="Features\PricingPolicies\ResponseDTOs\" />
+    <Folder Include="Features\PricingPolicies\Queries\" />
+    <Folder Include="Features\Tickets\Commands\" />
+    <Folder Include="Features\Tickets\ResponseDTOs\" />
+    <Folder Include="Features\Tickets\Queries\" />
     <Folder Include="Messaging\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
