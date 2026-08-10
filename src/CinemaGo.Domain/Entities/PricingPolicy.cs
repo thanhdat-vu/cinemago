@@ -161,5 +161,41 @@
                 OldScreenCoefficient: oldScreenCoefficient,
                 NewScreenCoefficient: newScreenCoefficient));
         }
+
+        /// <summary>
+        /// Activates this pricing policy. No-op when already active (idempotent).
+        /// </summary>
+        public void Activate()
+        {
+            if (IsActive)
+            {
+                return;
+            }
+
+            IsActive = true;
+            RaiseEvent(new PricingPolicyActivated(Id, CinemaId, ScreenType, SeatType));
+        }
+
+        /// <summary>
+        /// Deactivates this pricing policy. No-op when already inactive (idempotent).
+        /// </summary>
+        public void Deactivate()
+        {
+            if (!IsActive)
+            {
+                return;
+            }
+
+            IsActive = false;
+            RaiseEvent(new PricingPolicyDeactivated(Id, CinemaId, ScreenType, SeatType));
+        }
+
+        /// <summary>
+        /// Marks this pricing policy as deleted (soft delete handled by infrastructure).
+        /// </summary>
+        public void MarkAsDeleted()
+        {
+            RaiseEvent(new PricingPolicyDeleted(Id, CinemaId, ScreenType, SeatType));
+        }
     }
 }
