@@ -4,7 +4,7 @@ namespace CinemaGo.Domain
 {
     /// <summary>
     /// Ticket represents a single seat for a specific ShowTime.
-    /// Lifecycle: Available → Locking (customer selects) → Sold (booking confirmed).
+    /// Lifecycle: Available → Locking (customer selects) → PendingPayment → Sold.
     /// A locked ticket can be released back to Available if the customer abandons it.
     /// </summary>
     public class Ticket : AggregateRoot
@@ -27,29 +27,59 @@ namespace CinemaGo.Domain
         /// Null when the ticket is Available or Sold.
         /// </summary>
         public string? LockingBy { get; set; }
+        public DateTimeOffset? LockExpiresAt { get; set; }
+        public DateTimeOffset? PaymentExpiresAt { get; set; }
         public Guid? BookingId { get; set; }
         public TicketStatus Status { get; set; }
 
         // =============================================================
-        // State Transitions: Lock, Release, MarkAsSold
+        // State Transitions: Lock, StartPayment, Release, MarkAsSold
         // =============================================================
 
         /// <summary>
         /// Locks the ticket for a specific customer (prevents others from selecting it).
         /// Only Available tickets can be locked.
         /// </summary>
-        public void Lock(string lockBy)
+        public void Lock(string lockBy, DateTimeOffset lockExpiresAt)
         {
             if (Status != TicketStatus.Available)
                 throw new InvalidOperationException("Only available tickets can be locked.");
             Status = TicketStatus.Locking;
             LockingBy = lockBy;
+            LockExpiresAt = lockExpiresAt;
 
             RaiseEvent(new TicketLocked(
                 TicketId: Id,
                 ShowTimeId: ShowTimeId,
                 TicketCode: Code,
                 LockingBy: lockBy,
+                Price: Price));
+        }
+
+        /// <summary>
+        /// Moves ticket to pending payment for a specific booking.
+        /// Only locking tickets owned by the same customer can start payment.
+        /// </summary>
+        public void StartPayment(Guid bookingId, string startedBy, DateTimeOffset paymentExpiresAt)
+        {
+            if (Status != TicketStatus.Locking)
+                throw new InvalidOperationException("Only locking tickets can move to pending payment.");
+
+            if (LockingBy != startedBy)
+                throw new InvalidOperationException("Only the lock owner can start payment.");
+
+            Status = TicketStatus.PendingPayment;
+            BookingId = bookingId;
+            LockingBy = null;
+            LockExpiresAt = null;
+            PaymentExpiresAt = paymentExpiresAt;
+
+            RaiseEvent(new TicketPendingPayment(
+                TicketId: Id,
+                ShowTimeId: ShowTimeId,
+                BookingId: bookingId,
+                TicketCode: Code,
+                PaymentExpiresAt: paymentExpiresAt,
                 Price: Price));
         }
 
@@ -61,6 +91,9 @@ namespace CinemaGo.Domain
         {
             Status = TicketStatus.Available;
             LockingBy = null;
+            LockExpiresAt = null;
+            PaymentExpiresAt = null;
+            BookingId = null;
 
             RaiseEvent(new TicketReleased(
                 TicketId: Id,
@@ -74,13 +107,16 @@ namespace CinemaGo.Domain
         /// </summary>
         public void Release(string releaseBy)
         {
-            if (Status == TicketStatus.Available)
-                throw new InvalidOperationException("Only locking or sold tickets can be released.");
+            if (Status != TicketStatus.Locking)
+                throw new InvalidOperationException("Only locking tickets can be released by owner.");
 
             if (LockingBy != releaseBy)
                 throw new InvalidOperationException("Only locking tickets by the same customer can be released.");
             Status = TicketStatus.Available;
             LockingBy = null;
+            LockExpiresAt = null;
+            PaymentExpiresAt = null;
+            BookingId = null;
 
             RaiseEvent(new TicketReleased(
                 TicketId: Id,
@@ -90,15 +126,17 @@ namespace CinemaGo.Domain
 
         /// <summary>
         /// Marks the ticket as sold and links it to a confirmed Booking.
-        /// Only Locking tickets can be marked as sold.
+        /// Only pending payment tickets can be marked as sold.
         /// </summary
         public void MarkAsSold(Guid bookingId)
         {
-            if (Status != TicketStatus.Locking)
-                throw new InvalidOperationException("Only locking tickets can be marked as sold.");
+            if (Status != TicketStatus.PendingPayment)
+                throw new InvalidOperationException("Only pending payment tickets can be marked as sold.");
             Status = TicketStatus.Sold;
             BookingId = bookingId;
             LockingBy = null;
+            LockExpiresAt = null;
+            PaymentExpiresAt = null;
 
             RaiseEvent(new TicketSold(
                 TicketId: Id,

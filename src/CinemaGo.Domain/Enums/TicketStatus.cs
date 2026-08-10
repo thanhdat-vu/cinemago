@@ -4,6 +4,7 @@
     {
         Available,
         Locking,
+        PendingPayment,
         Sold
     }
 }
