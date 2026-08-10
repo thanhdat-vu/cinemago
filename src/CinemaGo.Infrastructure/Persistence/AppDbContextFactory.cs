@@ -9,7 +9,7 @@ namespace CinemaGo.Infrastructure.Persistence
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
-            var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Postgres")
+            var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__cinemagodb")
                 ?? Environment.GetEnvironmentVariable("POSTGRES_CONNECTION")
                 ?? "Host=localhost;Port=5432;Database=cinemagodb;Username=postgres;Password=postgres";
 

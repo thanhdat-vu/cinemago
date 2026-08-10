@@ -23,7 +23,6 @@ namespace CinemaGo.Application.Features
         {
             var item = await uow.PricingPolicies
                 .GetQueryFilter()
-                .AsNoTracking()
                 .Where(x => x.Id == query.Id)
                 .Select(x => new PricingPolicyDto(
                     x.Id,

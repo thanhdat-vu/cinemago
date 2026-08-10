@@ -18,7 +18,12 @@ var postgres = builder.AddPostgres(
 
 var cinemagodb = postgres.AddDatabase("cinemagodb");
 
+var redis = builder.AddRedis("redis");
+
 builder.AddProject<Projects.CinemaGo_WebServer>("cinemago-webserver")
-    .WithReference(cinemagodb).WaitFor(cinemagodb);
+    .WithReference(cinemagodb)
+    .WithReference(redis)
+    .WaitFor(cinemagodb)
+    .WaitFor(redis);
 
 builder.Build().Run();

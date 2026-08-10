@@ -23,7 +23,6 @@ namespace CinemaGo.Application.Features
         {
             var concession = await uow.Concessions
                 .GetQueryFilter()
-                .AsNoTracking()
                 .Where(x => x.Id == query.Id)
                 .Select(x => new ConcessionDto(
                     x.Id,

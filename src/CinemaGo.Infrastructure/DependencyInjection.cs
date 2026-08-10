@@ -1,8 +1,9 @@
 ﻿using CinemaGo.Application.Abstractions;
-using CinemaGo.Domain;
+using CinemaGo.Infrastructure.Cache;
 using CinemaGo.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 
 namespace CinemaGo.Infrastructure
 {
@@ -10,6 +11,23 @@ namespace CinemaGo.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            var redisConnectionString = configuration.GetConnectionString("redis");
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = redisConnectionString;
+                options.InstanceName = "CinemaTicketBooking:";
+            });
+            services.AddSingleton<IConnectionMultiplexer>(_ =>
+            {
+                if (string.IsNullOrWhiteSpace(redisConnectionString))
+                {
+                    throw new InvalidOperationException("Redis connection string 'redis' is not configured.");
+                }
+
+                return ConnectionMultiplexer.Connect(redisConnectionString);
+            });
+            services.AddScoped(typeof(ICacheService<>), typeof(RedisCacheService<>));
+
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<ICinemaRepository, CinemaRepository>();

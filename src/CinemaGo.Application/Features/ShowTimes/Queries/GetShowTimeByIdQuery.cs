@@ -23,7 +23,6 @@ namespace CinemaGo.Application.Features
         {
             var showTime = await uow.ShowTimes
                 .GetQueryFilter()
-                .AsNoTracking()
                 .Include(x => x.Movie)
                 .Include(x => x.Screen)
                     .ThenInclude(x => x!.Cinema)
