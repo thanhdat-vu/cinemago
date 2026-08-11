@@ -14,7 +14,11 @@ namespace CinemaGo.Infrastructure.Persistence.Configurations
             builder.Property(x => x.Description).HasMaxLength(MaxLengthConsts.TicketDescription);
             builder.Property(x => x.Price).HasPrecision(18, 2).IsRequired();
             builder.Property(x => x.LockingBy).HasMaxLength(MaxLengthConsts.SessionId);
+            builder.Property(x => x.LockExpiresAt);
+            builder.Property(x => x.PaymentExpiresAt);
             builder.Property(x => x.Status).IsRequired();
+            builder.HasIndex(x => new { x.Status, x.LockExpiresAt });
+            builder.HasIndex(x => new { x.Status, x.PaymentExpiresAt });
 
             builder.HasOne(x => x.ShowTime)
                 .WithMany(x => x.Tickets)

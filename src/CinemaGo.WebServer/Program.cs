@@ -1,7 +1,7 @@
-using CinemaGo.Application.Features.Tests;
 using CinemaGo.Infrastructure;
 using CinemaGo.Infrastructure.Persistence;
 using CinemaGo.WebServer;
+using CinemaGo.WebServer.CronJobs;
 using JasperFx;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
@@ -19,6 +19,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddOpenApi();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddHostedService<TicketLockRecoveryHostedService>();
 
 var app = builder.Build();
 

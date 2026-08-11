@@ -43,6 +43,8 @@ namespace CinemaGo.Application.Features
                     x.Status))
                 .ToList();
 
+            var availableTicketCount = showTime.Tickets.Count(x => x.Status == TicketStatus.Available);
+
             return new ShowTimeDetailDto(
                 showTime.Id,
                 showTime.MovieId,
@@ -56,7 +58,7 @@ namespace CinemaGo.Application.Features
                 showTime.EndAt,
                 showTime.Status,
                 showTime.Tickets.Count,
-                showTime.Tickets.Count(x => x.Status == TicketStatus.Available),
+                availableTicketCount,
                 showTime.CreatedAt,
                 tickets);
         }
