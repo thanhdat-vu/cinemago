@@ -145,7 +145,8 @@ namespace CinemaGo.UnitTests.Shared
             Guid showTimeId,
             decimal price,
             string lockedBy,
-            string code = "T1",
+            string code = "20260413-S1-A1",
+            string seatCode = "A1",
             DateTimeOffset? lockExpiresAt = null)
         {
             return new Ticket
@@ -153,6 +154,7 @@ namespace CinemaGo.UnitTests.Shared
                 Id = Guid.CreateVersion7(),
                 ShowTimeId = showTimeId,
                 Code = code,
+                SeatCode = seatCode,
                 Price = price,
                 Status = TicketStatus.Locking,
                 LockingBy = lockedBy,
@@ -168,13 +170,15 @@ namespace CinemaGo.UnitTests.Shared
             Guid bookingId,
             decimal price,
             DateTimeOffset? paymentExpiresAt = null,
-            string code = "T1")
+            string code = "20260413-S1-A1",
+            string seatCode = "A1")
         {
             return new Ticket
             {
                 Id = Guid.CreateVersion7(),
                 ShowTimeId = showTimeId,
                 Code = code,
+                SeatCode = seatCode,
                 Price = price,
                 Status = TicketStatus.PendingPayment,
                 BookingId = bookingId,
