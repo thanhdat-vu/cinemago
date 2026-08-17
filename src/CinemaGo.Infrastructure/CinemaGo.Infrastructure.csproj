@@ -27,7 +27,6 @@
     <Folder Include="Auth\Authentication\" />
     <Folder Include="Auth\Authorization\" />
     <Folder Include="FileStorages\" />
-    <Folder Include="Payments\" />
     <Folder Include="Notifications\" />
     <Folder Include="Persistence\Migrations\" />
   </ItemGroup>

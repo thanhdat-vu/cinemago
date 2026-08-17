@@ -22,6 +22,7 @@ namespace CinemaGo.Infrastructure.Persistence
         private ICustomerRepository? _customers;
         private IPricingPolicyRepository? _pricingPolicies;
         private ISeatSelectionPolicyRepository? _seatSelectionPolicies;
+        private IPaymentTransactionRepository? _paymentTransactions;
 
         public ICinemaRepository Cinemas => _cinemas ??= serviceProvider.GetRequiredService<ICinemaRepository>();
         public IMovieRepository Movies => _movies ??= serviceProvider.GetRequiredService<IMovieRepository>();
@@ -33,6 +34,7 @@ namespace CinemaGo.Infrastructure.Persistence
         public ICustomerRepository Customers => _customers ??= serviceProvider.GetRequiredService<ICustomerRepository>();
         public IPricingPolicyRepository PricingPolicies => _pricingPolicies ??= serviceProvider.GetRequiredService<IPricingPolicyRepository>();
         public ISeatSelectionPolicyRepository SeatSelectionPolicies => _seatSelectionPolicies ??= serviceProvider.GetRequiredService<ISeatSelectionPolicyRepository>();
+        public IPaymentTransactionRepository PaymentTransactions => _paymentTransactions ??= serviceProvider.GetRequiredService<IPaymentTransactionRepository>();
 
         public async Task CommitAsync(CancellationToken ct = default)
         {

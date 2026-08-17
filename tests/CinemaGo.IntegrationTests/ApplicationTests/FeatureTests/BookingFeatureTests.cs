@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CinemaGo.IntegrationTests.ApplicationTests.FeatureTests
 {
-    public sealed class CheckoutFeatureTests(PostgresContainerFixture databaseFixture)
+    public sealed class BookingFeatureTests(PostgresContainerFixture databaseFixture)
         : ApplicationFeatureTestBase(databaseFixture)
     {
         [Fact]
@@ -46,60 +46,74 @@ namespace CinemaGo.IntegrationTests.ApplicationTests.FeatureTests
                 SelectedTicketIds =
                 [
                     seed.TicketsBySeatCode["A1"],
-                seed.TicketsBySeatCode["A2"],
-                seed.TicketsBySeatCode["A3"]
+                    seed.TicketsBySeatCode["A2"],
+                    seed.TicketsBySeatCode["A3"]
                 ],
                 CorrelationId = "it-precheckout-ok"
             });
 
             response.CanProceed.Should().BeTrue();
             response.Errors.Should().BeEmpty();
+            response.PaymentOptions.Should().NotBeNullOrEmpty();
+            response.PaymentOptions!.Should().Contain(x => x.Method == "None");
         }
 
-        //[Fact]
-        //public async Task CreateBookingAndProcessPayment_Should_UseSharedPaymentExpiry_ForAllSelectedTickets()
-        //{
-        //    await ResetDatabaseAsync();
-        //    var seed = await SeedCheckoutGraphAsync();
-        //    var concessionId = await SeedConcessionAsync();
+        [Fact]
+        public async Task CreateBooking_Should_UseSharedPaymentExpiry_ForAllSelectedTickets_And_CreatePaymentTransaction()
+        {
+            await ResetDatabaseAsync();
+            var seed = await SeedCheckoutGraphAsync();
+            var concessionId = await SeedConcessionAsync();
 
-        //    var response = await InvokeAsync<CreateBookingAndProcessPaymentResponse>(new CreateBookingAndProcessPaymentCommand
-        //    {
-        //        ShowTimeId = seed.ShowTimeId,
-        //        CustomerSessionId = seed.SessionId,
-        //        CustomerName = "Guest Checkout",
-        //        CustomerPhoneNumber = "0123456789",
-        //        CustomerEmail = "guest.checkout@example.com",
-        //        SelectedTicketIds =
-        //        [
-        //            seed.TicketsBySeatCode["A1"],
-        //        seed.TicketsBySeatCode["A2"]
-        //        ],
-        //        Concessions = [new CheckoutConcessionSelection(concessionId, 2)],
-        //        DiscountAmount = 10_000m,
-        //        CorrelationId = "it-create-booking-process-payment"
-        //    });
+            var response = await InvokeAsync<CreateBookingResponse>(new CreateBookingCommand
+            {
+                ShowTimeId = seed.ShowTimeId,
+                CustomerSessionId = seed.SessionId,
+                CustomerName = "Guest Checkout",
+                CustomerPhoneNumber = "0123456789",
+                CustomerEmail = "guest.checkout@example.com",
+                SelectedTicketIds =
+                [
+                    seed.TicketsBySeatCode["A1"],
+                seed.TicketsBySeatCode["A2"]
+                ],
+                Concessions = [new CheckoutConcessionSelection(concessionId, 2)],
+                DiscountAmount = 10_000m,
+                PaymentMethod = "None",
+                ReturnUrl = "https://localhost/checkout/return",
+                IpAddress = "127.0.0.1",
+                CorrelationId = "it-create-booking-process-payment"
+            });
 
-        //    await using var db = CreateDbContext();
-        //    var booking = await db.Bookings
-        //        .Include(x => x.Tickets)
-        //        .ThenInclude(x => x.Ticket)
-        //        .SingleAsync(x => x.Id == response.BookingId);
+            await using var db = CreateDbContext();
+            var booking = await db.Bookings
+                .Include(x => x.Tickets)
+                .ThenInclude(x => x.Ticket)
+                .SingleAsync(x => x.Id == response.BookingId);
 
-        //    booking.Status.Should().Be(BookingStatus.Pending);
-        //    booking.Tickets.Should().HaveCount(2);
-        //    booking.Tickets.Select(x => x.Ticket!.Status).Should().OnlyContain(x => x == TicketStatus.PendingPayment);
-        //    booking.Tickets
-        //        .Select(x => x.Ticket!.PaymentExpiresAt)
-        //        .Distinct()
-        //        .Should()
-        //        .ContainSingle();
-        //    booking.Tickets.First().Ticket!.PaymentExpiresAt
-        //        .Should()
-        //        .BeCloseTo(response.PaymentExpiresAt, precision: TimeSpan.FromMilliseconds(10));
-        //    response.PaymentStatus.Should().Be("pending_payment");
-        //    response.FinalAmount.Should().Be(booking.FinalAmount);
-        //}
+            booking.Status.Should().Be(BookingStatus.Pending);
+            booking.Tickets.Should().HaveCount(2);
+            booking.Tickets.Select(x => x.Ticket!.Status).Should().OnlyContain(x => x == TicketStatus.PendingPayment);
+            booking.Tickets
+                .Select(x => x.Ticket!.PaymentExpiresAt)
+                .Distinct()
+                .Should()
+                .ContainSingle();
+            booking.Tickets.First().Ticket!.PaymentExpiresAt
+                .Should()
+                .BeCloseTo(response.PaymentExpiresAt, precision: TimeSpan.FromMilliseconds(10));
+            response.PaymentStatus.Should().Be("pending_payment");
+            response.FinalAmount.Should().Be(booking.FinalAmount);
+            response.PaymentUrl.Should().NotBeNullOrEmpty();
+            response.RedirectBehavior.Should().Be(PaymentRedirectBehavior.QrCode);
+            response.PaymentTransactionId.Should().NotBeNull();
+
+            var paymentTransaction = await db.PaymentTransactions
+                .SingleAsync(x => x.BookingId == response.BookingId);
+            paymentTransaction.Method.Should().Be(PaymentMethod.None);
+            paymentTransaction.Status.Should().Be(PaymentTransactionStatus.Pending);
+            paymentTransaction.Amount.Should().Be(booking.FinalAmount);
+        }
 
         private async Task<(Guid ShowTimeId, string SessionId, Dictionary<string, Guid> TicketsBySeatCode)> SeedCheckoutGraphAsync()
         {

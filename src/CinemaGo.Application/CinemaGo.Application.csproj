@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Bookings\Queries\" />
-    <Folder Include="Features\Checkout\Commands\" />
     <Folder Include="Features\Customers\Commands\" />
     <Folder Include="Features\Customers\ResponseDTOs\" />
     <Folder Include="Features\Customers\Queries\" />

@@ -1,6 +1,7 @@
 ﻿using CinemaGo.Application.Abstractions;
 using CinemaGo.Application.Features;
 using CinemaGo.Infrastructure.Cache;
+using CinemaGo.Infrastructure.Payments;
 using CinemaGo.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,9 +46,16 @@ namespace CinemaGo.Infrastructure
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IScreenRepository, ScreenRepository>();
             services.AddScoped<IPricingPolicyRepository, PricingPolicyRepository>();
+            services.AddScoped<ISeatSelectionPolicyRepository, SeatSelectionPolicyRepository>();
             services.AddScoped<IShowTimeRepository, ShowTimeRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<IPaymentTransactionRepository, PaymentTransactionRepository>();
             services.AddScoped<IUnitOfWork, EFUnitOfWork>();
+
+            // Payment services
+            services.AddScoped<IPaymentService, NoPaymentGatewayService>();
+            services.AddScoped<IPaymentServiceFactory, PaymentServiceFactory>();
+
             return services;
         }
     }

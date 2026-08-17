@@ -14,6 +14,7 @@ namespace CinemaGo.Application.Abstractions
         ICustomerRepository Customers { get; }
         IPricingPolicyRepository PricingPolicies { get; }
         ISeatSelectionPolicyRepository SeatSelectionPolicies { get; }
+        IPaymentTransactionRepository PaymentTransactions { get; }
 
         Task CommitAsync(CancellationToken cancellationToken = default);
     }

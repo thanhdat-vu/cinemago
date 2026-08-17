@@ -104,7 +104,7 @@
             }
 
             IsAvailable = false;
-            RaiseEvent(new ConcessionMarkedAvailable(Id));
+            RaiseEvent(new ConcessionMarkedUnavailable(Id));
         }
     }
 }

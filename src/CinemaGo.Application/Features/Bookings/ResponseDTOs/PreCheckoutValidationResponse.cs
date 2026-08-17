@@ -11,5 +11,6 @@
         bool CanProceed,
         IReadOnlyList<PreCheckoutViolationDto> Warnings,
         IReadOnlyList<PreCheckoutViolationDto> Errors,
-        IReadOnlyList<string> Hints);
+        IReadOnlyList<string> Hints,
+        IReadOnlyList<PaymentGatewayOptionDto>? PaymentOptions = null);
 }

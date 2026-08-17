@@ -25,5 +25,8 @@
         public const int PasswordHash = 512;
         public const int SecurityStamp = 128;
         public const int ConcurrencyStamp = 128;
+        public const int GatewayTransactionId = 256;
+        public const int PaymentUrl = 2048;
+        public const int GatewayResponseRaw = 8000;
     }
 }
