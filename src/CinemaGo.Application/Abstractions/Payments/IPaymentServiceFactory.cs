@@ -1,7 +1,4 @@
 ﻿using CinemaGo.Application.Features;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CinemaGo.Application.Abstractions
 {

@@ -3,6 +3,7 @@ using CinemaGo.Application.Features;
 using CinemaGo.Infrastructure.Cache;
 using CinemaGo.Infrastructure.Payments;
 using CinemaGo.Infrastructure.Persistence;
+using CinemaGo.Infrastructure.QrCodes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
@@ -55,6 +56,8 @@ namespace CinemaGo.Infrastructure
             // Payment services
             services.AddScoped<IPaymentService, NoPaymentGatewayService>();
             services.AddScoped<IPaymentServiceFactory, PaymentServiceFactory>();
+
+            services.AddSingleton<IQrCodeGenerator, QrCodeGenerator>();
 
             return services;
         }

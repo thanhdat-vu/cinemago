@@ -1,7 +1,4 @@
-﻿using CinemaGo.Domain;
-using Wolverine;
-
-namespace CinemaGo.Application.Extensions
+﻿namespace CinemaGo.Application.Extensions
 {
     public static class MessageBusExtensions
     {

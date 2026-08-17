@@ -1,6 +1,6 @@
 ﻿namespace CinemaGo.Application.Features
 {
-    public sealed record CreateBookingResponse(
+    public record CreateBookingResponse(
         Guid BookingId,
         DateTimeOffset PaymentExpiresAt,
         decimal OriginAmount,

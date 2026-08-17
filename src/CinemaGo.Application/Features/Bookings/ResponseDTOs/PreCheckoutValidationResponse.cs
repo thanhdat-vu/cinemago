@@ -1,13 +1,13 @@
 ﻿namespace CinemaGo.Application.Features
 {
-    public sealed record PreCheckoutViolationDto(
+    public record PreCheckoutViolationDto(
         string Type,
         string Severity,
         string Message,
         IReadOnlyList<string> AffectedSeats,
         bool BlockCheckout);
 
-    public sealed record PreCheckoutValidationResponse(
+    public record PreCheckoutValidationResponse(
         bool CanProceed,
         IReadOnlyList<PreCheckoutViolationDto> Warnings,
         IReadOnlyList<PreCheckoutViolationDto> Errors,

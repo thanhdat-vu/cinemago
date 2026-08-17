@@ -3,7 +3,7 @@
     /// <summary>
     /// Validates selected tickets against seat-layout policy before checkout can proceed.
     /// </summary>
-    public sealed class ValidatePreCheckoutSeatSelectionCommand : ICommand
+    public class ValidatePreCheckoutSeatSelectionCommand : ICommand
     {
         public Guid ShowTimeId { get; set; }
         public List<Guid> SelectedTicketIds { get; set; } = [];
@@ -14,7 +14,7 @@
     /// <summary>
     /// Handles pre-checkout seat-layout validation.
     /// </summary>
-    public sealed class ValidatePreCheckoutSeatSelectionHandler(
+    public class ValidatePreCheckoutSeatSelectionHandler(
         IUnitOfWork uow,
         IPaymentServiceFactory paymentServiceFactory)
     {
@@ -88,7 +88,7 @@
     /// <summary>
     /// Validates pre-checkout command payload.
     /// </summary>
-    public sealed class ValidatePreCheckoutSeatSelectionValidator : AbstractValidator<ValidatePreCheckoutSeatSelectionCommand>
+    public class ValidatePreCheckoutSeatSelectionValidator : AbstractValidator<ValidatePreCheckoutSeatSelectionCommand>
     {
         public ValidatePreCheckoutSeatSelectionValidator()
         {

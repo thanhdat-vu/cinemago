@@ -23,7 +23,6 @@
     <Folder Include="Features\Customers\Queries\" />
     <Folder Include="Features\Tickets\ResponseDTOs\" />
     <Folder Include="Features\Tickets\Queries\" />
-    <Folder Include="Helpers\" />
   </ItemGroup>
 
 </Project>
