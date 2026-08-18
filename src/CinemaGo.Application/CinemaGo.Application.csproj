@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Common\PipelineMiddlewares\" />
     <Folder Include="Features\Bookings\Queries\" />
     <Folder Include="Features\Customers\Commands\" />
     <Folder Include="Features\Customers\ResponseDTOs\" />

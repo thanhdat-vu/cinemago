@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="10.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="10.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.10">
@@ -28,7 +34,6 @@
     <Folder Include="Auth\Authentication\" />
     <Folder Include="Auth\Authorization\" />
     <Folder Include="FileStorages\" />
-    <Folder Include="Notifications\" />
     <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 

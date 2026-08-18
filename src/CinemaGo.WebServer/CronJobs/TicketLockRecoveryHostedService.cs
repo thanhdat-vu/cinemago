@@ -6,11 +6,13 @@ namespace CinemaGo.WebServer.CronJobs
     /// <summary>
     /// Triggers stale ticket reservation recovery on service startup.
     /// </summary>
-    public class TicketLockRecoveryHostedService(IMessageBus bus) : IHostedService
+    public class TicketLockRecoveryHostedService(IServiceScopeFactory scopeFactory) : IHostedService
     {
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
+            await using var scope = scopeFactory.CreateAsyncScope();
+            var bus = scope.ServiceProvider.GetRequiredService<IMessageBus>();
             await bus.PublishAsync(new RecoverStaleTicketLocksCommand
             {
                 CorrelationId = Guid.CreateVersion7().ToString()

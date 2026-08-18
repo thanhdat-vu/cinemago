@@ -1,5 +1,6 @@
 ﻿using CinemaGo.Domain;
 using CinemaGo.Infrastructure.Auth;
+using CinemaGo.Infrastructure.Auth.Models;
 using CinemaGo.Infrastructure.Persistence.Configurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace CinemaGo.Infrastructure.Persistence
         public DbSet<BookingTicket> BookingTickets => Set<BookingTicket>();
         public DbSet<BookingConcession> BookingConcessions => Set<BookingConcession>();
         public DbSet<PaymentTransaction> PaymentTransactions => Set<PaymentTransaction>();
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

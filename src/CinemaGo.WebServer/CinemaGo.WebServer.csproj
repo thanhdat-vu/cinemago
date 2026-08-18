@@ -17,12 +17,16 @@
   </ItemGroup>
 
   <ItemGroup>
+	<InternalsVisibleTo Include="CinemaGo.IntegrationTests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CinemaGo.Application\CinemaGo.Application.csproj" />
     <ProjectReference Include="..\CinemaGo.Infrastructure\CinemaGo.Infrastructure.csproj" />
     <ProjectReference Include="..\CinemaGo.ServiceDefaults\CinemaGo.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApiEndpoints\" />
     <Folder Include="Hubs\" />
     <Folder Include="Middlewares\" />
   </ItemGroup>

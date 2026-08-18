@@ -27,7 +27,8 @@ namespace CinemaGo.Application.Features.Bookings.Commands
     public class RetryPaymentHandler(
         IUnitOfWork uow,
         IOptions<TicketLockingOptions> options,
-        IPaymentServiceFactory paymentServiceFactory)
+        IPaymentServiceFactory paymentServiceFactory,
+        IUserContext userContext)
     {
         /// <summary>
         /// Validates booking state, extends ticket payment holds, calls the gateway, and persists the new transaction.
@@ -46,8 +47,13 @@ namespace CinemaGo.Application.Features.Bookings.Commands
                     "Only pending bookings can retry payment.");
             }
 
-            if (booking.Customer is null
-                || !string.Equals(booking.Customer.SessionId, command.CustomerSessionId, StringComparison.Ordinal))
+            var sessionMatches = booking.Customer is not null
+                        && string.Equals(booking.Customer.SessionId, command.CustomerSessionId, StringComparison.Ordinal);
+            var customerAccountMatches = userContext.IsAuthenticated
+                && userContext.CustomerId.HasValue
+                && booking.CustomerId == userContext.CustomerId;
+
+            if (!sessionMatches && !customerAccountMatches)
             {
                 throw new InvalidOperationException(
                     "Customer session is not authorized to retry payment for this booking.");
