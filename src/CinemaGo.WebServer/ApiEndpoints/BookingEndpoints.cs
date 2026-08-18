@@ -1,4 +1,5 @@
-﻿using Wolverine;
+﻿using CinemaGo.Application.Features;
+using Wolverine;
 
 namespace CinemaGo.WebServer.ApiEndpoints
 {
@@ -18,15 +19,14 @@ namespace CinemaGo.WebServer.ApiEndpoints
                     {
                         try
                         {
-                            //var dto = await bus.InvokeAsync<BookingSummaryDto?>(
-                            //    new GetBookingByIdQuery
-                            //    {
-                            //        BookingId = bookingId,
-                            //        CorrelationId = string.Empty
-                            //    },
-                            //    ct);
-                            //return dto is null ? Results.NotFound() : Results.Ok(dto);
-                            return null;
+                            var dto = await bus.InvokeAsync<BookingDetailsDto?>(
+                                new GetBookingByIdQuery
+                                {
+                                    BookingId = bookingId,
+                                    CorrelationId = string.Empty
+                                },
+                                ct);
+                            return dto is null ? Results.NotFound() : Results.Ok(dto);
                         }
                         catch (UnauthorizedAccessException)
                         {
