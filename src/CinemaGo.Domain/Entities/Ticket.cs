@@ -18,12 +18,14 @@ namespace CinemaGo.Domain
         /// Canonical seat code (A1, B3, Sweet2...) used by seat-layout validation.
         /// </summary>
         public string SeatCode { get; set; } = string.Empty;
+
         /// <summary>
         /// Unique ticket code. Format: "{Date:yyyyMMdd}-{ScreenCode}-{SeatCode}"
         /// Example: "20260415-S1-A3"
         /// </summary>
         public string Code { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+
         /// <summary>
         /// Final price calculated from PricingPolicy at ShowTime creation time.
         /// </summary>
@@ -31,6 +33,7 @@ namespace CinemaGo.Domain
         public Guid ShowTimeId { get; set; }
         [JsonIgnore]
         public ShowTime? ShowTime { get; set; }
+
         /// <summary>
         /// Identifier of who is currently locking this ticket (Customer.SessionId or Customer.Id).
         /// Null when the ticket is Available or Sold.
@@ -90,6 +93,17 @@ namespace CinemaGo.Domain
                 TicketCode: Code,
                 PaymentExpiresAt: paymentExpiresAt,
                 Price: Price));
+        }
+
+        /// <summary>
+        /// Extends the payment window while the ticket stays in pending payment (e.g. client retries another gateway).
+        /// </summary>
+        public void ExtendPaymentHold(DateTimeOffset paymentExpiresAt)
+        {
+            if (Status != TicketStatus.PendingPayment)
+                throw new InvalidOperationException("Only pending payment tickets can extend the payment hold.");
+
+            PaymentExpiresAt = paymentExpiresAt;
         }
 
         /// <summary>
