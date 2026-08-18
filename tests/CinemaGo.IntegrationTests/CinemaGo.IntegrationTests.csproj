@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApiTests\" />
     <Folder Include="ApplicationTests\MessagingTests\" />
   </ItemGroup>
 

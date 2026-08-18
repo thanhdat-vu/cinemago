@@ -4,23 +4,21 @@ namespace CinemaGo.IntegrationTests.Shared.Fixtures
 {
     public sealed class FakeUserContext : IUserContext
     {
-        public Guid UserId { get; } = Guid.CreateVersion7();
-        public string UserName { get; } = "integration-tester";
+        public bool IsAuthenticated { get; set; } = true;
 
-        public bool IsAuthenticated => throw new NotImplementedException();
+        public Guid UserId { get; set; } = Guid.CreateVersion7();
 
-        public Guid? CustomerId => throw new NotImplementedException();
+        public string UserName { get; set; } = "integration-tester";
 
-        public IReadOnlySet<string> Permissions => throw new NotImplementedException();
+        public Guid? CustomerId { get; set; }
 
-        public bool HasPermission(string permission)
-        {
-            throw new NotImplementedException();
-        }
+        public IReadOnlySet<string> Permissions { get; set; } = new HashSet<string>(StringComparer.Ordinal);
 
         public bool IsInRole(string role)
         {
             return string.Equals(role, "Admin", StringComparison.OrdinalIgnoreCase);
         }
+
+        public bool HasPermission(string permission) => Permissions.Contains(permission);
     }
 }

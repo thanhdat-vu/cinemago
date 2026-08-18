@@ -26,6 +26,7 @@ namespace CinemaGo.WebServer.ApiEndpoints
                             //    },
                             //    ct);
                             //return dto is null ? Results.NotFound() : Results.Ok(dto);
+                            return null;
                         }
                         catch (UnauthorizedAccessException)
                         {
