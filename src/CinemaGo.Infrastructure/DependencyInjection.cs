@@ -52,6 +52,7 @@ namespace CinemaGo.Infrastructure
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IPaymentTransactionRepository, PaymentTransactionRepository>();
             services.AddScoped<IUnitOfWork, EFUnitOfWork>();
+            services.AddScoped<DataSeeder>();
 
             // Payment services
             services.AddScoped<IPaymentService, NoPaymentGatewayService>();

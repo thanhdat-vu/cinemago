@@ -50,6 +50,7 @@ app.MapGet("/apis", () => Results.Redirect("scalar/v1"));
 
 app.MapAuthEndpoints();
 app.MapBookingEndpoints();
+app.MapShowTimeEndpoints();
 
 app.MapStaticAssets();
 
@@ -70,8 +71,8 @@ try
     await IdentityDataSeeder.SeedAsync(roleManager, loggerFactory.CreateLogger("IdentitySeed"));
 
     // Seed data
-    //var seeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
-    //await seeder.SeedAsync();
+    var seeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
+    await seeder.SeedAsync();
 }
 catch (Exception ex)
 {
