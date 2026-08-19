@@ -1,4 +1,5 @@
 ﻿using CinemaGo.Application;
+using CinemaGo.Application.Common.PipelineMiddlewares;
 using CinemaGo.Domain;
 using CinemaGo.Infrastructure.Persistence;
 using JasperFx;
@@ -16,6 +17,9 @@ namespace CinemaGo.WebServer
     {
         public static void AddWolverine(this WebApplicationBuilder builder)
         {
+            builder.Services.Configure<MessagePipelineLoggingOptions>(
+                builder.Configuration.GetSection(MessagePipelineLoggingOptions.SectionName));
+
             builder.Host.UseWolverine(opts =>
             {
                 opts.Discovery.IncludeAssembly(typeof(IRequest).Assembly);
@@ -31,6 +35,10 @@ namespace CinemaGo.WebServer
                 opts.Policies.AutoApplyTransactions();
                 opts.Policies.UseDurableLocalQueues();
 
+                // Message pipeline: logging, optional query cache, exception logging (non-HTTP paths).
+                opts.Policies.AddMiddleware(typeof(LoggingMiddleware));
+                opts.Policies.ForMessagesOfType<ICachableQuery>().AddMiddleware(typeof(CachingMiddleware));
+
                 opts.Policies
                     .OnException<DbUpdateConcurrencyException>()
                     .RetryWithCooldown(50.Milliseconds(), 250.Milliseconds(), 1.Seconds())
@@ -40,6 +48,19 @@ namespace CinemaGo.WebServer
                 .OnException<ConcurrencyException>()
                 .RetryWithCooldown(50.Milliseconds(), 250.Milliseconds(), 1.Seconds())
                 .Then.MoveToErrorQueue();
+
+                // Last: log any remaining handler failures (Publish, InvokeAsync, cron, scheduled) that are not matched above.
+                // Uses MoveToErrorQueue as the primary action so .And runs as a side effect (same as default terminal outcome for poison messages).
+                opts.Policies.OnException<Exception>()
+                    .MoveToErrorQueue()
+                    .And((runtime, _, ex) =>
+                    {
+                        var lf = runtime.Services.GetRequiredService<ILoggerFactory>();
+                        lf.CreateLogger("Wolverine.MessageFailures").LogError(
+                            ex,
+                            "Unhandled exception in Wolverine message handling");
+                        return ValueTask.CompletedTask;
+                    });
 
                 opts.AutoBuildMessageStorageOnStartup = AutoCreate.CreateOrUpdate;
 

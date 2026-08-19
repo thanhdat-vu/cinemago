@@ -4,6 +4,7 @@ using CinemaGo.Infrastructure.Persistence;
 using CinemaGo.WebServer;
 using CinemaGo.WebServer.ApiEndpoints;
 using CinemaGo.WebServer.CronJobs;
+using CinemaGo.WebServer.Middlewares;
 using JasperFx;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,8 @@ builder.Services.AddAuthInfrastructure(builder.Configuration);
 builder.Services.AddHostedService<TicketLockRecoveryHostedService>();
 
 var app = builder.Build();
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.MapDefaultEndpoints();
 
@@ -51,6 +54,9 @@ app.MapGet("/apis", () => Results.Redirect("scalar/v1"));
 app.MapAuthEndpoints();
 app.MapBookingEndpoints();
 app.MapShowTimeEndpoints();
+//app.MapCinemaEndpoints();
+//app.MapMovieEndpoints();
+//app.MapScreenEndpoints();
 
 app.MapStaticAssets();
 
