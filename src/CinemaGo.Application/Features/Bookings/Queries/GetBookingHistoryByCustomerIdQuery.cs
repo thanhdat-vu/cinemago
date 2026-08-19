@@ -2,7 +2,7 @@
 
 namespace CinemaGo.Application.Features
 {
-    public class GetBookingHistoryByCustomerIdQuery : IQuery
+    public class GetBookingHistoryByCustomerIdQuery : IQuery<PagedResult<BookingMinimalInfoDto>>
     {
         public Guid CustomerId { get; set; }
         public int PageNumber { get; set; }

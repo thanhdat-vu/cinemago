@@ -5,7 +5,7 @@ namespace CinemaGo.Application.Features
     /// <summary>
     /// Gets showtimes with optional filters.
     /// </summary>
-    public class GetShowTimesQuery : IQuery
+    public class GetShowTimesQuery : IQuery<IReadOnlyList<ShowTimeDto>>
     {
         public Guid? CinemaId { get; set; }
         public Guid? MovieId { get; set; }

@@ -31,12 +31,13 @@ namespace CinemaGo.Infrastructure
 
                     return ConnectionMultiplexer.Connect(redisOptions);
                 });
-                services.AddScoped(typeof(ICacheService<>), typeof(RedisCacheService<>));
+                services.AddScoped<ICacheService, RedisCacheService>();
                 services.AddScoped<ITicketLocker, RedisTicketLocker>();
             }
             else
             {
                 services.AddScoped<ITicketLocker, NoRedisTicketLocker>();
+                services.AddScoped<ICacheService, NoOpCacheService>();
             }
 
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));

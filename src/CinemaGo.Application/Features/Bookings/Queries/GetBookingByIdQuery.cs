@@ -3,7 +3,7 @@
     /// <summary>
     /// Loads a booking by id with ownership checks for the current user.
     /// </summary>
-    public class GetBookingByIdQuery : IQuery
+    public class GetBookingByIdQuery : IQuery<BookingDetailsDto?>
     {
         public Guid BookingId { get; set; }
         public string CorrelationId { get; set; } = string.Empty;

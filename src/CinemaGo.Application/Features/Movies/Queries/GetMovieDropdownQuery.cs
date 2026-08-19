@@ -5,7 +5,7 @@ namespace CinemaGo.Application.Features
     /// <summary>
     /// Gets movies for dropdown data source.
     /// </summary>
-    public class GetMovieDropdownQuery : IQuery
+    public class GetMovieDropdownQuery : IQuery<IReadOnlyList<MovieDropdownDto>>
     {
         public string? SearchTerm { get; set; }
         public MovieStatus? Status { get; set; }

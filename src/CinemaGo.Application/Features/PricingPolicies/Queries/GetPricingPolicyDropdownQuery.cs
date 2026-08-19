@@ -5,7 +5,7 @@ namespace CinemaGo.Application.Features
     /// <summary>
     /// Gets pricing policies for dropdown data source.
     /// </summary>
-    public class GetPricingPolicyDropdownQuery : IQuery
+    public class GetPricingPolicyDropdownQuery : IQuery<IReadOnlyList<PricingPolicyDropdownDto>>
     {
         public Guid? CinemaId { get; set; }
         public bool OnlyActive { get; set; } = true;
