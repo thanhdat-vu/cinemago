@@ -1,4 +1,5 @@
-﻿using CinemaGo.Infrastructure.Persistence;
+﻿using CinemaGo.Application;
+using CinemaGo.Infrastructure.Persistence;
 using CinemaGo.IntegrationTests.Shared.Fixtures;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,6 +40,18 @@ namespace CinemaGo.IntegrationTests.ApplicationTests.FeatureTests
         protected AppDbContext CreateDbContext()
         {
             return DatabaseFixture.CreateDbContext();
+        }
+
+        protected FakeUserContext FakeUserContext
+        {
+            get
+            {
+                var userContext = _messageHost?.Services.GetRequiredService<IUserContext>()
+                    ?? throw new InvalidOperationException("Wolverine message host has not been initialized.");
+
+                return userContext as FakeUserContext
+                    ?? throw new InvalidOperationException("Configured IUserContext is not FakeUserContext.");
+            }
         }
 
         protected async Task<TResponse> InvokeAsync<TResponse>(object request, CancellationToken ct = default)
