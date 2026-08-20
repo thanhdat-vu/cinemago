@@ -30,10 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApplicationTests\MessagingTests\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\CinemaGo.Application\CinemaGo.Application.csproj" />
     <ProjectReference Include="..\..\src\CinemaGo.Domain\CinemaGo.Domain.csproj" />
     <ProjectReference Include="..\..\src\CinemaGo.Infrastructure\CinemaGo.Infrastructure.csproj" />

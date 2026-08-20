@@ -4,6 +4,7 @@ using CinemaGo.Application.Features;
 using CinemaGo.Infrastructure;
 using CinemaGo.Infrastructure.Auth;
 using CinemaGo.Infrastructure.Persistence;
+using CinemaGo.IntegrationTests.Shared.Fakes;
 using JasperFx;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,8 @@ namespace CinemaGo.IntegrationTests.Shared.Fixtures
                     services.AddInfrastructure(new ConfigurationBuilder().Build());
                     services.AddSingleton<IUserContext, FakeUserContext>();
                     services.AddScoped<IAccountCustomerLinker, AccountCustomerLinker>();
+                    services.AddSingleton<InMemoryTicketRealtimePublisher>();
+                    services.AddSingleton<ITicketRealtimePublisher>(sp => sp.GetRequiredService<InMemoryTicketRealtimePublisher>());
                     services.Configure<TicketLockingOptions>(opts =>
                     {
                         opts.LockHoldSeconds = 1;
