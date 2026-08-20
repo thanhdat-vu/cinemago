@@ -11,6 +11,7 @@
         string ScreenCode,
         Guid CinemaId,
         string CinemaName,
+        string SeatMap,
         DateOnly Date,
         DateTimeOffset StartAt,
         DateTimeOffset EndAt,

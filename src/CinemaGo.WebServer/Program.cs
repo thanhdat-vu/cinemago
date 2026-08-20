@@ -1,9 +1,11 @@
+using CinemaGo.Application.Abstractions;
 using CinemaGo.Infrastructure;
 using CinemaGo.Infrastructure.Auth;
 using CinemaGo.Infrastructure.Persistence;
 using CinemaGo.WebServer;
 using CinemaGo.WebServer.ApiEndpoints;
 using CinemaGo.WebServer.CronJobs;
+using CinemaGo.WebServer.Hubs;
 using CinemaGo.WebServer.Middlewares;
 using JasperFx;
 using Microsoft.AspNetCore.Identity;
@@ -19,11 +21,13 @@ builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR();
 
 builder.Services.AddOpenApi();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddAuthInfrastructure(builder.Configuration);
+builder.Services.AddSingleton<ITicketRealtimePublisher, SignalRTicketRealtimePublisher>();
 builder.Services.AddHostedService<TicketLockRecoveryHostedService>();
 
 var app = builder.Build();
@@ -57,6 +61,7 @@ app.MapShowTimeEndpoints();
 app.MapCinemaEndpoints();
 app.MapMovieEndpoints();
 app.MapScreenEndpoints();
+app.MapHub<TicketStatusHub>("/hubs/tickets").AllowAnonymous();
 
 app.MapStaticAssets();
 
