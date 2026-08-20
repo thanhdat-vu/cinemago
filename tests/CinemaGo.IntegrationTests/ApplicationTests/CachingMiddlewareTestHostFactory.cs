@@ -9,7 +9,7 @@ using Wolverine;
 namespace CinemaGo.IntegrationTests.ApplicationTests
 {
     /// <summary>
-    /// En Minimal Wolverine host for <see cref="CachingMiddleware"/> integration tests (no database).
+    /// Minimal Wolverine host for <see cref="CachingMiddleware"/> integration tests (no database).
     /// </summary>
     public static class CachingMiddlewareTestHostFactory
     {
