@@ -54,9 +54,9 @@ app.MapGet("/apis", () => Results.Redirect("scalar/v1"));
 app.MapAuthEndpoints();
 app.MapBookingEndpoints();
 app.MapShowTimeEndpoints();
-//app.MapCinemaEndpoints();
-//app.MapMovieEndpoints();
-//app.MapScreenEndpoints();
+app.MapCinemaEndpoints();
+app.MapMovieEndpoints();
+app.MapScreenEndpoints();
 
 app.MapStaticAssets();
 
