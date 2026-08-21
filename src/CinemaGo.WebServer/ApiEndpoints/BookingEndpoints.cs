@@ -1,4 +1,6 @@
 ﻿using CinemaGo.Application.Features;
+using CinemaGo.Application.Features.Bookings.Commands;
+using Microsoft.AspNetCore.Mvc;
 using Wolverine;
 
 namespace CinemaGo.WebServer.ApiEndpoints
@@ -19,6 +21,7 @@ namespace CinemaGo.WebServer.ApiEndpoints
             group.MapPost("/", CreateBooking);
             group.MapPut("/{id:guid}/checkin", CheckInBooking);
             group.MapPut("/{id:guid}/cancel", CancelBooking);
+            group.MapPost("/{id:guid}/retry-payment", RetryPayment);
         }
 
         private static async Task<IResult> GetBookingById(
@@ -71,5 +74,30 @@ namespace CinemaGo.WebServer.ApiEndpoints
             await bus.InvokeAsync(new CancelBookingCommand { BookingId = bookingId }, ct);
             return Results.NoContent();
         }
+
+        private static async Task<IResult> RetryPayment(
+            Guid id,
+            [FromBody] RetryPaymentRequest request,
+            IMessageBus bus,
+            CancellationToken ct)
+        {
+            var command = new RetryPaymentCommand
+            {
+                BookingId = id,
+                CustomerSessionId = request.CustomerSessionId,
+                PaymentMethod = request.PaymentMethod,
+                ReturnUrl = request.ReturnUrl,
+                IpAddress = request.IpAddress
+            };
+            var response = await bus.InvokeAsync<CreateBookingResponse>(command, ct);
+            return Results.Ok(response);
+        }
     }
+
+    public record RetryPaymentRequest(
+        string CustomerSessionId,
+        string PaymentMethod,
+        string ReturnUrl,
+        string IpAddress
+    );
 }
