@@ -3,7 +3,7 @@
 namespace CinemaGo.UnitTests.Shared
 {
     /// <summary>
-    /// En factory helpers for Domain entity unit tests.
+    /// Factory helpers for Domain entity unit tests.
     /// </summary>
     public static class DomainTestBuilders
     {

@@ -1,6 +1,4 @@
 ﻿namespace CinemaGo.Domain
 {
-    public interface IDomainEvent
-    {
-    }
+    public interface IDomainEvent;
 }
