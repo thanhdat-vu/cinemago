@@ -29,6 +29,9 @@ namespace CinemaGo.WebServer.ApiEndpoints
             group.MapPost("/{id:guid}/start", StartShowTimeAsync);
             group.MapPost("/{id:guid}/complete", CompleteShowTimeAsync);
             group.MapPost("/{id:guid}/cancel", CancelShowTimeAsync);
+
+            group.MapPost("/{id:guid}/tickets/{ticketId:guid}/lock", LockTicketAsync);
+            group.MapPost("/{id:guid}/tickets/{ticketId:guid}/release", ReleaseTicketAsync);
         }
 
         private static async Task<IResult> GetShowTimesAsync(
@@ -134,6 +137,38 @@ namespace CinemaGo.WebServer.ApiEndpoints
             await bus.InvokeAsync(new CancelShowTimeCommand { Id = id, CorrelationId = string.Empty }, ct);
             return Results.NoContent();
         }
+
+        private static async Task<IResult> LockTicketAsync(
+            Guid id,
+            Guid ticketId,
+            [FromBody] LockTicketRequest request,
+            IMessageBus bus,
+            CancellationToken ct)
+        {
+            await bus.InvokeAsync(new LockTicketCommand
+            {
+                TicketId = ticketId,
+                LockBy = request.LockBy,
+                CorrelationId = string.Empty
+            }, ct);
+            return Results.NoContent();
+        }
+
+        private static async Task<IResult> ReleaseTicketAsync(
+            Guid id,
+            Guid ticketId,
+            [FromBody] ReleaseTicketRequest request,
+            IMessageBus bus,
+            CancellationToken ct)
+        {
+            await bus.InvokeAsync(new ReleaseTicketCommand
+            {
+                TicketId = ticketId,
+                ReleaseBy = request.ReleaseBy,
+                CorrelationId = string.Empty
+            }, ct);
+            return Results.NoContent();
+        }
     }
 
     public sealed class GetShowTimesRequest
@@ -166,4 +201,7 @@ namespace CinemaGo.WebServer.ApiEndpoints
         public ShowTimeStatus? Status { get; init; }
         public int MaxItems { get; init; } = 100;
     }
+
+    public sealed record LockTicketRequest(string LockBy);
+    public sealed record ReleaseTicketRequest(string ReleaseBy);
 }
