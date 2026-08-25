@@ -18,7 +18,7 @@ namespace CinemaGo.IntegrationTests.ApplicationTests.FeatureTests
             await ResetDatabaseAsync();
             var seed = await SeedCheckoutGraphAsync();
 
-            var response = await InvokeAsync<PreCheckoutValidationResponse>(new ValidatePreCheckoutSeatSelectionCommand
+            var response = await InvokeAsync<ValidateSeatSelectionResponse>(new ValidatePreCheckoutSeatSelectionCommand
             {
                 ShowTimeId = seed.ShowTimeId,
                 CustomerSessionId = seed.SessionId,
@@ -42,7 +42,7 @@ namespace CinemaGo.IntegrationTests.ApplicationTests.FeatureTests
             await ResetDatabaseAsync();
             var seed = await SeedCheckoutGraphAsync();
 
-            var response = await InvokeAsync<PreCheckoutValidationResponse>(new ValidatePreCheckoutSeatSelectionCommand
+            var response = await InvokeAsync<ValidateSeatSelectionResponse>(new ValidatePreCheckoutSeatSelectionCommand
             {
                 ShowTimeId = seed.ShowTimeId,
                 CustomerSessionId = seed.SessionId,

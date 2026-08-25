@@ -13,7 +13,7 @@
     /// <summary>
     /// Handles delayed auto-release for timed-out locking stage.
     /// </summary>
-    public class ReleaseTicketLockByTimeoutHandler(IUnitOfWork uow, ITicketLocker locker)
+    public class ReleaseTicketLockByTimeoutHandler(IUnitOfWork uow, ITicketLocker locker, ITicketRealtimePublisher realtimePublisher)
     {
         /// <summary>
         /// Performs idempotent release only when ticket is still locked by the same owner.
@@ -34,7 +34,6 @@
             ticket.Release();
             uow.Tickets.Update(ticket);
             await uow.CommitAsync(ct);
-
             await locker.ReleaseAsync(cmd.TicketId, cmd.LockingBy, ct);
         }
     }
