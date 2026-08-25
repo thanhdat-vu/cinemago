@@ -3,7 +3,7 @@ const footerLinks = ["Điều khoản", "Quyền riêng tư", "Tuyển dụng", 
 function Footer() {
     return (
         <footer className="w-full border-t border-[#45484f]/20 bg-[#0b0e14] px-8 py-12">
-            <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 md:flex-row">
+            <div className="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-between gap-6 md:flex-row">
                 <div className="font-headline text-lg font-bold uppercase tracking-widest text-slate-200">
                     CINEMAGO
                 </div>
