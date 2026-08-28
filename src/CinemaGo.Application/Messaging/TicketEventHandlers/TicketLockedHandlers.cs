@@ -43,7 +43,8 @@ namespace CinemaGo.Application.Features
                     domainEvent.TicketId,
                     domainEvent.TicketCode,
                     TicketStatus.Locking,
-                    DateTimeOffset.UtcNow),
+                    DateTimeOffset.UtcNow,
+                    domainEvent.LockingBy),
                 ct);
         }
     }

@@ -27,6 +27,7 @@
         Guid Id,
         string Code,
         decimal Price,
-        TicketStatus Status
+        TicketStatus Status,
+        string? LockingBy
     );
 }

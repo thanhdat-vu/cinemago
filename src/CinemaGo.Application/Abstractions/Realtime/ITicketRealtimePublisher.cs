@@ -19,5 +19,6 @@
         Guid TicketId,
         string TicketCode,
         TicketStatus Status,
-        DateTimeOffset OccurredAtUtc);
+        DateTimeOffset OccurredAtUtc,
+        string? LockingBy = null);
 }

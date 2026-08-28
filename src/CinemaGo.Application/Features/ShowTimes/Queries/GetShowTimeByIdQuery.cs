@@ -40,7 +40,8 @@ namespace CinemaGo.Application.Features
                     x.Id,
                     x.Code,
                     x.Price,
-                    x.Status))
+                    x.Status,
+                    x.LockingBy))
                 .ToList();
 
             var availableTicketCount = showTime.Tickets.Count(x => x.Status == TicketStatus.Available);
