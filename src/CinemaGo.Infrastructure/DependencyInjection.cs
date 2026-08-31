@@ -2,6 +2,7 @@
 using CinemaGo.Application.Features;
 using CinemaGo.Infrastructure.Cache;
 using CinemaGo.Infrastructure.Payments;
+using CinemaGo.Infrastructure.Payments.Vnpay;
 using CinemaGo.Infrastructure.Persistence;
 using CinemaGo.Infrastructure.QrCodes;
 using Microsoft.Extensions.Configuration;
@@ -56,7 +57,9 @@ namespace CinemaGo.Infrastructure
             services.AddScoped<DataSeeder>();
 
             // Payment services
+            services.Configure<VnpayOptions>(configuration.GetSection(VnpayOptions.SectionName));
             services.AddScoped<IPaymentService, NoPaymentGatewayService>();
+            services.AddScoped<IPaymentService, VnpayPaymentService>();
             services.AddScoped<IPaymentServiceFactory, PaymentServiceFactory>();
 
             services.AddSingleton<IQrCodeGenerator, QrCodeGenerator>();
