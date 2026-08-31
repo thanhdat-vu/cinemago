@@ -128,7 +128,8 @@ namespace CinemaGo.Application.Features.Bookings.Commands
                 PaymentStatus: "pending_payment",
                 PaymentUrl: paymentResult.PaymentUrl,
                 RedirectBehavior: paymentResult.RedirectBehavior,
-                PaymentTransactionId: transaction.Id);
+                PaymentTransactionId: transaction.Id,
+                GatewayTransactionId: paymentResult.GatewayTransactionId);
         }
     }
 

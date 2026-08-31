@@ -18,7 +18,7 @@ namespace CinemaGo.IntegrationTests.ApplicationTests.FeatureTests
             await ResetDatabaseAsync();
             var seed = await SeedCheckoutGraphAsync();
 
-            var response = await InvokeAsync<ValidateSeatSelectionResponse>(new ValidatePreCheckoutSeatSelectionCommand
+            var response = await InvokeAsync<ValidateSeatSelectionResponse>(new ValidateSeatSelectionCommand
             {
                 ShowTimeId = seed.ShowTimeId,
                 CustomerSessionId = seed.SessionId,
@@ -42,7 +42,7 @@ namespace CinemaGo.IntegrationTests.ApplicationTests.FeatureTests
             await ResetDatabaseAsync();
             var seed = await SeedCheckoutGraphAsync();
 
-            var response = await InvokeAsync<ValidateSeatSelectionResponse>(new ValidatePreCheckoutSeatSelectionCommand
+            var response = await InvokeAsync<ValidateSeatSelectionResponse>(new ValidateSeatSelectionCommand
             {
                 ShowTimeId = seed.ShowTimeId,
                 CustomerSessionId = seed.SessionId,
@@ -136,8 +136,8 @@ namespace CinemaGo.IntegrationTests.ApplicationTests.FeatureTests
             verifyResponse.Status.Should().Be("confirmed");
             verifyResponse.PaymentTransactionId.Should().Be(paymentTxId);
             verifyResponse.CheckinQrCode.Should().NotBeNullOrEmpty();
-            verifyResponse.CheckinQrCode!.Should().StartWith("data:image/png;base64,");
-            verifyResponse.CheckinQrCode.Length.Should().BeLessThanOrEqualTo(MaxLengthConsts.QrCode);
+            verifyResponse.CheckinQrCode!.Should().Be(bookingId.ToString());
+            verifyResponse.CheckinQrCode!.Length.Should().BeLessThanOrEqualTo(MaxLengthConsts.QrCode);
             verifyResponse.CanRetry.Should().BeFalse();
 
             await using var db = CreateDbContext();

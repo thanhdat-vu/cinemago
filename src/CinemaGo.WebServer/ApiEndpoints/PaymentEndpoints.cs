@@ -17,6 +17,9 @@ namespace CinemaGo.WebServer.ApiEndpoints
 
             group.MapGet("/fake-callback", FakeCallback)
                 .AllowAnonymous();
+
+            group.MapGet("/gateways", GetAvailableGateways)
+                .AllowAnonymous();
         }
 
         public static async Task<IResult> FakeCallback(
@@ -48,6 +51,12 @@ namespace CinemaGo.WebServer.ApiEndpoints
         public static async Task<IResult> MomoCallback()
         {
             return Results.Ok();
+        }
+
+        public static async Task<IResult> GetAvailableGateways(IMessageBus bus)
+        {
+            var gateways = await bus.InvokeAsync<IReadOnlyList<PaymentGatewayOptionDto>>(new GetAvailableGatewaysQuery());
+            return Results.Ok(gateways);
         }
     }
 }
