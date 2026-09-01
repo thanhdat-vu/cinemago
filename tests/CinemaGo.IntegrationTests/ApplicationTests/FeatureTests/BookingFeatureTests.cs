@@ -157,7 +157,7 @@ namespace CinemaGo.IntegrationTests.ApplicationTests.FeatureTests
         }
 
         [Fact]
-        public async Task VerifyPayment_Should_Throw_When_GatewayTransactionIdDoesNotMatchPending()
+        public async Task VerifyPayment_Should_Throw_When_GatewayTransactionId_DoesNotExist()
         {
             var (bookingId, gatewayTxId, _, _) = await ArrangePendingBookingForVerifyPaymentAsync();
 
@@ -171,7 +171,36 @@ namespace CinemaGo.IntegrationTests.ApplicationTests.FeatureTests
             });
 
             await act.Should().ThrowAsync<InvalidOperationException>()
-                .WithMessage("*Gateway transaction ID mismatch*");
+                .WithMessage("*was not found*");
+        }
+
+        [Fact]
+        public async Task VerifyPayment_Should_Return_CurrentState_When_Transaction_Already_Success()
+        {
+            var (bookingId, gatewayTxId, paymentTxId, _) = await ArrangePendingBookingForVerifyPaymentAsync();
+
+            await InvokeAsync<VerifyPaymentResponse>(new VerifyPaymentCommand
+            {
+                BookingId = bookingId,
+                GatewayTransactionId = gatewayTxId,
+                PaymentMethod = "None",
+                GatewayResponseParams = [],
+                CorrelationId = "it-verify-payment-first-success"
+            });
+
+            var secondCall = await InvokeAsync<VerifyPaymentResponse>(new VerifyPaymentCommand
+            {
+                BookingId = bookingId,
+                GatewayTransactionId = gatewayTxId,
+                PaymentMethod = "None",
+                GatewayResponseParams = [],
+                CorrelationId = "it-verify-payment-second-success"
+            });
+
+            secondCall.IsSuccess.Should().BeTrue();
+            secondCall.Status.Should().Be("confirmed");
+            secondCall.PaymentTransactionId.Should().Be(paymentTxId);
+            secondCall.CanRetry.Should().BeFalse();
         }
 
         [Fact]
