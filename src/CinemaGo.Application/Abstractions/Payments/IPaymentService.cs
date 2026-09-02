@@ -27,5 +27,10 @@ namespace CinemaGo.Application.Abstractions
         /// How the client should handle this gateway's payment flow.
         /// </summary>
         PaymentRedirectBehavior RedirectBehavior { get; }
+
+        /// <summary>
+        /// Raw SVG icon markup rendered by frontend payment method buttons.
+        /// </summary>
+        string Icon { get; }
     }
 }

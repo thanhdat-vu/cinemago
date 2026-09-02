@@ -18,6 +18,18 @@ namespace CinemaGo.Infrastructure.Persistence
         }
 
         /// <summary>
+        /// Returns all pending payment transactions for the given booking.
+        /// </summary>
+        public async Task<List<PaymentTransaction>> GetAllPendingByBookingIdAsync(
+            Guid bookingId, CancellationToken ct = default)
+        {
+            return await _dbSet
+                .Where(x => x.BookingId == bookingId && x.Status == PaymentTransactionStatus.Pending)
+                .OrderByDescending(x => x.CreatedAt)
+                .ToListAsync(ct);
+        }
+
+        /// <summary>
         /// Returns the most recent transaction by gateway transaction id.
         /// </summary>
         public async Task<PaymentTransaction?> GetByGatewayTransactionIdAsync(

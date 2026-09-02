@@ -44,5 +44,6 @@
     public sealed record PaymentGatewayOptionDto(
         string Method,
         string DisplayName,
-        PaymentRedirectBehavior RedirectBehavior);
+        PaymentRedirectBehavior RedirectBehavior,
+        string Icon);
 }
