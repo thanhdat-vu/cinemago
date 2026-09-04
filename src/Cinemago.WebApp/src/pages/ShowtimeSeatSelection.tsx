@@ -168,7 +168,6 @@ function ShowtimeSeatSelection() {
         }
 
         if (!showtimeId) {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             setError("Thiếu mã suất chiếu.")
             setLoading(false)
             return
@@ -417,9 +416,15 @@ function ShowtimeSeatSelection() {
                                             onClick={() => void toggleSeat(seat.code)}
                                             disabled={isUnavailable}
                                             title={`${seat.code} - ${status}`}
-                                            className={`h-11 rounded-md border text-[11px] font-semibold transition-colors ${canSpanDoubleCell ? "col-span-2 w-full" : "w-11"} ${stateClass}`}
+                                            className={`relative h-11 rounded-md border text-[11px] font-semibold transition-colors ${canSpanDoubleCell ? "col-span-2 w-full" : "w-11"} ${stateClass}`}
                                         >
-                                            {seat.code}
+                                            {isPending ? (
+                                                <span className="absolute inset-0 flex items-center justify-center">
+                                                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                                                </span>
+                                            ) : (
+                                                seat.code
+                                            )}
                                         </button>,
                                     )
 
