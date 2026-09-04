@@ -15,7 +15,8 @@
         Guid? CustomerId,
         string DisplayName,
         string? Email,
-        string? AvatarUrl);
+        string? AvatarUrl,
+        string? PhoneNumber = null);
 
     public sealed record ForgotPasswordRequest(string Email);
 

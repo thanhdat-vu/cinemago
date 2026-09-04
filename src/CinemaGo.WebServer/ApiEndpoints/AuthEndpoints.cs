@@ -223,7 +223,8 @@ namespace CinemaGo.WebServer.ApiEndpoints
                 account.CustomerId,
                 displayName,
                 account.Email ?? customer?.Email,
-                null));
+                null,
+                customer?.PhoneNumber));
         }
 
         private static async Task<IResult> ForgotPasswordAsync(

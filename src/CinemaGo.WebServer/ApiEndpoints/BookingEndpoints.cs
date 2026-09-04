@@ -27,6 +27,7 @@ namespace CinemaGo.WebServer.ApiEndpoints
 
         private static async Task<IResult> GetBookingById(
             Guid bookingId,
+            [FromQuery] string? customerSessionId,
             IMessageBus bus,
             CancellationToken ct)
         {
@@ -34,6 +35,7 @@ namespace CinemaGo.WebServer.ApiEndpoints
                 new GetBookingByIdQuery
                 {
                     BookingId = bookingId,
+                    CustomerSessionId = customerSessionId ?? string.Empty,
                     CorrelationId = string.Empty
                 },
                 ct);

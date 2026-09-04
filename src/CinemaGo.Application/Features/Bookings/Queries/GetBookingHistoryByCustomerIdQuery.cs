@@ -18,10 +18,10 @@ namespace CinemaGo.Application.Features
             PermissionHelper.EnsureCanAccessBooking(userContext, query.CustomerId);
 
             var bookingsQuery = uow.Bookings.GetQueryFilter()
-                .Include(b => b.ShowTime)
-                    .ThenInclude(st => st!.Screen)
-                .Include(b => b.ShowTime)
-                    .ThenInclude(st => st!.Movie)
+                //.Include(b => b.ShowTime)
+                //    .ThenInclude(st => st!.Screen)
+                //.Include(b => b.ShowTime)
+                //    .ThenInclude(st => st!.Movie)
                 .Where(b => b.CustomerId == query.CustomerId);
             if (query.Date.HasValue)
             {
