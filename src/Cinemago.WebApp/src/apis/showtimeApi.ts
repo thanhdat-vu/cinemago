@@ -7,7 +7,7 @@ import {
     type ShowTimeDtoRaw,
     normalizeShowTimeDetailDto,
     normalizeShowTimeDto,
-} from "../types/contracts"
+} from "../types/ShowTime"
 
 type GetShowTimesParams = {
     movieId?: string
@@ -35,10 +35,7 @@ export async function releaseTicket(showtimeId: string, ticketId: string, releas
     await httpClient.post(`/api/showtimes/${showtimeId}/tickets/${ticketId}/release`, { releaseBy })
 }
 
-export type ValidateSeatSelectionRequest = {
-    selectedTicketIds: string[]
-    customerSessionId: string
-}
+import { type ValidateSeatSelectionRequest } from "../types/ShowTime"
 
 type SeatSelectionViolation = {
     type?: string
@@ -76,9 +73,9 @@ export async function validateSeatSelection(
                     .filter((m): m is string => Boolean(m && m.length > 0))
             const parts = [...fromViolations(d.errors), ...fromViolations(d.warnings)]
             if (parts.length > 0) {
-                throw new Error(parts.join(" "), { cause: e })
+                throw new Error(parts.join(" "))
             }
         }
-        throw new Error("Không thể xác nhận lựa chọn ghế. Vui lòng thử lại.", { cause: e })
+        throw new Error("Không thể xác nhận lựa chọn ghế. Vui lòng thử lại.")
     }
 }
