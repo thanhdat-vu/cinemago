@@ -1,9 +1,11 @@
 using CinemaGo.WebServer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace CinemaGo.WebServer.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Identity.Application")]
     public class HomeController : Controller
     {
         public IActionResult Index()
