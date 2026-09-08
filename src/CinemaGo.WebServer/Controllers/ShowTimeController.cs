@@ -1,4 +1,5 @@
-﻿using CinemaGo.Application.Features;
+﻿using CinemaGo.Application.Common.Auth;
+using CinemaGo.Application.Features;
 using CinemaGo.Application.Features.Screens.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace CinemaGo.WebServer.Controllers
         /// <summary>
         /// Displays a calendar list of showtimes.
         /// </summary>
+        [Authorize(Policy = Permissions.ShowTimesView)]
         public IActionResult Index(string? date = null)
         {
             ViewData["Title"] = "Showtime Calendar";
@@ -41,6 +43,7 @@ namespace CinemaGo.WebServer.Controllers
         /// Processes a request to schedule a new Showtime via AJAX.
         /// </summary>
         [HttpPost]
+        [Authorize(Policy = Permissions.ShowTimesManage)]
         public async Task<IActionResult> Create(Guid movieId, Guid screenId, DateTimeOffset startAt)
         {
             var command = new AddShowTimeCommand
@@ -66,6 +69,7 @@ namespace CinemaGo.WebServer.Controllers
         /// Cancels an upcoming showtime via AJAX.
         /// </summary>
         [HttpPost]
+        [Authorize(Policy = Permissions.ShowTimesManage)]
         public async Task<IActionResult> Cancel(Guid id)
         {
             try
@@ -117,6 +121,7 @@ namespace CinemaGo.WebServer.Controllers
         /// Gets layout and showtimes for a specific date in JSON.
         /// </summary>
         [HttpGet]
+        [Authorize(Policy = Permissions.ShowTimesView)]
         public async Task<IActionResult> GetCalendarData(string date)
         {
             DateOnly selectedDate;

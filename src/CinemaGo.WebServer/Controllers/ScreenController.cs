@@ -1,4 +1,5 @@
 ﻿using CinemaGo.Application;
+using CinemaGo.Application.Common.Auth;
 using CinemaGo.Application.Features;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace CinemaGo.WebServer.Controllers
         /// <summary>
         /// Displays a paged list of cinema screens.
         /// </summary>
+        [Authorize(Policy = Permissions.ScreensView)]
         public async Task<IActionResult> Index(Guid? cinemaId, int pageNumber = 1, int pageSize = 10, string? searchTerm = null)
         {
             ViewData["Title"] = "Quản lý phòng chiếu";
@@ -40,6 +42,7 @@ namespace CinemaGo.WebServer.Controllers
         /// Creates a new screen via AJAX.
         /// </summary>
         [HttpPost]
+        [Authorize(Policy = Permissions.ScreensManage)]
         public async Task<IActionResult> Create([FromBody] AddScreenCommand command)
         {
             try
@@ -57,6 +60,7 @@ namespace CinemaGo.WebServer.Controllers
         /// Updates screen basic info via AJAX.
         /// </summary>
         [HttpPost]
+        [Authorize(Policy = Permissions.ScreensManage)]
         public async Task<IActionResult> Update([FromBody] UpdateScreenBasicInfoCommand command)
         {
             try
@@ -74,6 +78,7 @@ namespace CinemaGo.WebServer.Controllers
         /// Deactivates a screen via AJAX.
         /// </summary>
         [HttpPost]
+        [Authorize(Policy = Permissions.ScreensManage)]
         public async Task<IActionResult> Deactivate(Guid id)
         {
             try
@@ -91,6 +96,7 @@ namespace CinemaGo.WebServer.Controllers
         /// Activates a screen via AJAX.
         /// </summary>
         [HttpPost]
+        [Authorize(Policy = Permissions.ScreensManage)]
         public async Task<IActionResult> Activate(Guid id)
         {
             try

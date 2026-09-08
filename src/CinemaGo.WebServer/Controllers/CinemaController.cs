@@ -1,4 +1,5 @@
 ﻿using CinemaGo.Application;
+using CinemaGo.Application.Common.Auth;
 using CinemaGo.Application.Features;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace CinemaGo.WebServer.Controllers
         /// <summary>
         /// Displays a paged list of cinemas.
         /// </summary>
+        [Authorize(Policy = Permissions.CinemasView)]
         public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 10, string? searchTerm = null)
         {
             ViewData["Title"] = "Quản lý rạp";
@@ -35,6 +37,7 @@ namespace CinemaGo.WebServer.Controllers
         /// Creates a new cinema via AJAX.
         /// </summary>
         [HttpPost]
+        [Authorize(Policy = Permissions.CinemasManage)]
         public async Task<IActionResult> Create([FromBody] CreateCinemaCommand command)
         {
             try
@@ -52,6 +55,7 @@ namespace CinemaGo.WebServer.Controllers
         /// Updates cinema basic info via AJAX.
         /// </summary>
         [HttpPost]
+        [Authorize(Policy = Permissions.CinemasManage)]
         public async Task<IActionResult> Update([FromBody] UpdateCinemaBasicInfoCommand command)
         {
             try
@@ -69,6 +73,7 @@ namespace CinemaGo.WebServer.Controllers
         /// Deletes a cinema via AJAX.
         /// </summary>
         [HttpPost]
+        [Authorize(Policy = Permissions.CinemasManage)]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

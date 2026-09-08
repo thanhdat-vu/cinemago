@@ -114,15 +114,20 @@ namespace CinemaGo.Infrastructure.Auth
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(
-                    Permissions.BookingsViewAll,
-                    p => p.RequireClaim(AuthClaimTypes.Permission, Permissions.BookingsViewAll));
-                options.AddPolicy(
-                    Permissions.AccountsLock,
-                    p => p.RequireClaim(AuthClaimTypes.Permission, Permissions.AccountsLock));
-                options.AddPolicy(
-                    Permissions.AccountsUnlock,
-                    p => p.RequireClaim(AuthClaimTypes.Permission, Permissions.AccountsUnlock));
+                var permissionFields = typeof(Permissions)
+                                .GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.FlattenHierarchy)
+                                .Where(fi => fi.IsLiteral && !fi.IsInitOnly && fi.FieldType == typeof(string));
+
+                foreach (var field in permissionFields)
+                {
+                    var permissionValue = (string)field.GetValue(null)!;
+                    options.AddPolicy(permissionValue, p =>
+                    {
+                        p.RequireAssertion(context =>
+                            context.User.IsInRole(RoleNames.SystemAdmin) ||
+                            context.User.HasClaim(c => c.Type == AuthClaimTypes.Permission && c.Value == permissionValue));
+                    });
+                }
             });
 
             return services;
