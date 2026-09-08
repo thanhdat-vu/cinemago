@@ -22,7 +22,7 @@ namespace CinemaGo.WebServer.Controllers
             DateOnly selectedDate;
             if (string.IsNullOrEmpty(date) || !DateOnly.TryParse(date, out selectedDate))
             {
-                selectedDate = DateOnly.FromDateTime(DateTime.UtcNow);
+                selectedDate = DateOnly.FromDateTime(DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(7)).DateTime);
             }
 
             var model = new ShowTimeCalendarViewModel
@@ -122,7 +122,7 @@ namespace CinemaGo.WebServer.Controllers
             DateOnly selectedDate;
             if (string.IsNullOrEmpty(date) || !DateOnly.TryParse(date, out selectedDate))
             {
-                selectedDate = DateOnly.FromDateTime(DateTime.UtcNow);
+                selectedDate = DateOnly.FromDateTime(DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(7)).DateTime);
             }
 
             var cinemasTask = bus.InvokeAsync<IReadOnlyList<CinemaDto>>(new GetCinemasQuery());
