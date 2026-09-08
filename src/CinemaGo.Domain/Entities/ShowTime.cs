@@ -70,7 +70,7 @@
                 Movie = movie,
                 ScreenId = screen.Id,
                 Screen = screen,
-                Date = DateOnly.FromDateTime(startAt.DateTime),
+                Date = DateOnly.FromDateTime(startAt.ToOffset(TimeSpan.FromHours(7)).DateTime),
                 StartAt = startAt,
                 EndAt = endAt,
                 Status = ShowTimeStatus.Upcoming
