@@ -15,7 +15,21 @@ namespace CinemaGo.WebServer.Controllers
         [HttpGet]
         public IActionResult Login(string? returnUrl = null)
         {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        /// <summary>
+        /// Displays the access denied page.
+        /// </summary>
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
             return View();
         }
 
